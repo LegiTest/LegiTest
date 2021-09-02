@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140mm" height="140mm" version="1.1" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg"><style>@media (prefers-color-scheme: light) {
+  :root {
+    filter: invert(100%);
+  }
+}</style><rect x="17.373" y="50.778" width="10.606" height="59.337" rx="1.9011" fill="#fff" stroke-width="1.6392"/><path d="m8.1362 35.46 3.538 4.3627h117.75l3.3785-4.279z" fill="#fff" stroke-width=".95605"/><path d="m4.2047 128 3.7484-8.0392h124.76l3.5794 7.885z" fill="#fff" stroke-width=".9403"/><rect x="42.592" y="70.054" width="10.606" height="40.063" rx="1.9011" fill="#fff" stroke-width="1.6445"/><path d="m1.8898 28.49 68.365-17.613 68.276 17.696-3.7029 4.2702h-129.06z" fill="#fff" stroke-width=".95605"/><rect x="66.253" y="79.962" width="10.606" height="30.15" rx="1.9011" fill="#fff" stroke-width="1.2796"/><rect x="90.205" y="54.292" width="10.606" height="55.823" rx="1.9011" fill="#fff" stroke-width="2.023"/><rect x="113.19" y="62.91" width="10.606" height="47.202" rx="1.9011" fill="#fff" stroke-width="1.4805"/></svg>

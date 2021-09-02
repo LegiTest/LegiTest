@@ -1,0 +1,7 @@
+.env
+static/assets/img/deputes/*
+sources/
+config/*/*
+data/*
+Cargo.lock
+target/

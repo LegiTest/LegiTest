@@ -1,0 +1,27 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Contact: mailto:contact@quelparti.fr
+Expires: 2038-01-19T03:14:00.000Z
+Encryption: https://quelparti.fr/assets/txt/pgp-key.txt
+Acknowledgments: https://github.com/QuelParti/QuelParti
+Preferred-Languages: fr, en
+Canonical: https://quelparti.fr/.well-known/security.txt
+Policy: https://github.com/quelparti/quelparti/blob/main/SECURITY.md
+-----BEGIN PGP SIGNATURE-----
+
+iQJJBAEBCgAzFiEEkIi3P9OhnrFOCu8hTH5crlaV63EFAmEw7ZEVHGNvbnRhY3RA
+cXVlbHBhcnRpLmZyAAoJEEx+XK5Wletxr0kP/3fo1MIXhBCcfRN8fiJVJYl/bXBU
+EqLtbSu3ZivmxsQG08jkk6mUSHw+0MK3syfK1Dzuncj34/1EDPyHvXYkTCkcXgpi
+zCRK85zykRaIfs0EJBe9ECBKW8sELz5CUl5y6vccYdZXpRcLamzUi4684V+SYTBf
+zQvHPNR1cwyx8o+5l+31NBhIHZxmSCua51vZy5Im6COtaJNbMMjGqtzlFOHJfG2z
+FjT/G4+97/zsO0/DtU9pmAMhU+ucmBDjOTRoTHEFmAh/T/bxAGWhkbMFHpOwJwQf
+DP9BuhSM06LhlJICaBvUs5E7cysXpQMkvEX1eb6cHCgZ0jn0QCtAfGRVoCHV970o
+qm1iaJqCB/LX2Oat7I2gPTx58t7W8al4PJlJeitveGrcBjT+MM+UdMqobzlkzXij
+XpchM2noPS0kQvnmdnMsuPCoW9ATnonbi9MuBlMvuWb8DFzBo+8B+Kd4Od8/biCb
+JHUmhk56VtrwKfW9JXKGsHIHeMcseNHndkM7px/fNlwSqv+TmDZczNXsInV4su38
+Fu6nsLLq7BhWxuVD0Y7Y9uus0mixtTFHuH1BMh7upndBdNTJ2ok2Esp1htYYuD89
+uwGfimmiyF+vK3/b+yQjzj4Rc5KMoGFPJhchK2oFMObrQVEXgsFEgOyK3nCzSHGE
+wzQYXujpNAjaQBZd
+=2DBT
+-----END PGP SIGNATURE-----

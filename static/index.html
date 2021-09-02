@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <title>QuelParti.fr – Choisissez votre coalition.</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="TODO: Description" />
+        <!-- TODO: opengraph (og:) meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="/assets/css/index.css?v=1" />
+        <link rel="icon" href="/assets/img/favicon/favicon.svg" type="image/svg+xml">
+        <script type="text/javascript" src="/assets/js/index.js?v=1"></script>
+    </head>
+    <body>
+        <div class="main-view flex overflow-y">
+            <div id="choices-main-table" class="choices-main-table hidden">
+                <div id="table-desc" class="table-desc"><span id="table-desc-content"></span></div>
+                <div class="overflow-x">
+                    <table id="scrutins-table" class="scrutins-table">
+                    </table>
+                </div>
+                <div id="begin-test-banner" class="begin-test-banner flex">
+                    <div>
+                        <p>Pour identifier les groupes politiques et les députés proches de vos opinions, faites le test.</p>
+                    </div>
+                    <div class="flex begin-test-banner-button">
+                        <a id="begin-test-from-table" class="button highlight inline">Commencer le test</a>
+                    </div>
+                </div>
+            </div>
+            <div id="intro" class="main-box flex fade-in-left">
+                <div id="test-progress-top" class="progress fullwidth">
+                    <span style="width: 0%;"></span>
+                </div>
+                <div id="intro-welcome-text" class="main-box-content flex overflow-y">
+                    <noscript><a class="button highlight">Il est nécessaire d'activer Javascript pour continuer. Désolé&nbsp;!</a></noscript>
+                    <div class="contents">
+                        <h1>Bienvenue&nbsp;!</h1>
+
+                        <p>Vous pouvez voter, mais vous ne savez pas du tout quel parti soutenir&nbsp;? Vous découvrez la politique et ça vous ennuie déjà&nbsp;?</p>
+                        <p>Vous avez frappé à la bonne porte.</p>
+                        <p>Imaginez-vous à l'Assemblée Nationale cinq minutes. Des textes vont vous être présentés et vous allez devoir voter «&nbsp;<b>pour</b>&nbsp;», «&nbsp;<b>contre</b>&nbsp;» ou vous <b>abstenir</b>. <b>Ces textes sont des cas réels.</b></p>
+                        <p>À la fin du test, vos votes seront comparés aux votes réels de l'Assemblée Nationale et vous pourrez ainsi découvrir <b>quel parti politique se rapproche le plus de votre avis</b>.</p>
+
+                        <p>N'oubliez pas&nbsp;: il n'y a pas de bonne ou de mauvaise réponse.</p>
+
+                        <br />
+                        <div class="flex">
+                            <a id="skip-intro" class="button gray inline disabled">Passer</a>
+                            <a id="begin-test-intro" class="button highlight inline disabled">Commencer le test</a>
+                            <a id="begin-test-intro-results" class="button highlight inline disabled hidden">Voir les résultats</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="question-box" class="main-box-content flex hidden">
+                    <div class="flex question-top">
+                        <a id="test-back" class="button info back">&lt;&lt; Retour</a>
+                        <a id="test-sources" class="button info back">Sources</a>
+                        <p id="scrutin_meta" class="scrutin-meta"></p>
+                    </div>
+                    <div class="contents fullwidth">
+                        <br />
+                        <h2 id="scrutin_name"></h2>
+                        <p id="scrutin_description"></p>
+                        <div id="scrutin_arguments">
+                        </div>
+                        <p id="scrutin_question"></p>
+                        <div class="flex">
+                            <a id="test-vote-against" class="button red inline">Contre</a>
+                            <a id="test-vote-not" class="button gray inline">Abstention</a>
+                            <a id="test-vote-for" class="button green inline">Pour</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="sources-view" class="main-box-content flex hidden">
+                    <div class="contents fullwidth">
+                        <div id="scrutin_sources" class="sources"></div>
+                        <br />
+                        <a id="sources-back" class="button info inline">Retour</a>
+                    </div>
+                </div>
+                <div id="test-results" class="main-box-content flex hidden">
+                    <div class="flex question-top">
+                        <a id="test-back-results" class="button info back disabled">&lt;&lt; Retour</a>
+                        <a id="test-reset" class="button back highlight disabled">Recommencer le test</a>
+                    </div>
+                    <div class="flex results-top-right question-top">
+                        <a id="test-view-details" class="button info back disabled">Voir les détails</a>
+                    </div>
+                    <div class="contents fullwidth">
+                        <h2>Bravo, vous avez terminé le test ! Voici vos résultats.</h2>
+                        <div id="match-groupe" class="results-card results-match flex hidden">
+                            <div class="pic flex">
+                                <img id="match-organe-img" />
+                            </div>
+                            <div class="description">
+                                <span>Meilleure correspondance&nbsp;: groupe politique</span>
+                                <h3 id="match-organe-name"></h3>
+                            </div>
+                        </div>
+                        <br />
+                        <div id="match-depute" class="results-card results-match flex hidden">
+                            <div class="pic flex">
+                                <img id="match-depute-img" />
+                            </div>
+                            <div class="description">
+                                <span>Meilleure correspondance&nbsp;: député</span>
+                                <h3 id="match-depute-name"></h3>
+                            </div>
+                        </div>
+                        <br />
+                        <div id="match-view" class="results-card results-graph hidden">
+                            <h2>Score personnel</h2>
+                            <span>Votre pourcentage d'affinité avec les groupes politiques</span>
+                            <div id="match-view-content">
+                            </div>
+                        </div>
+                        <br />
+                        <div id="results-graph" class="results-card results-graph hidden">
+                            <h2>Score global</h2>
+                            <span>Calculé à partir de toutes les participations au test</span>
+                            <div id="results-graph-content">
+                            </div>
+                        </div>
+                        <div id="results-submit-div" class="hidden">
+                            <br />
+                            <div id="results-submit-card" class="results-card results-submit">
+                                <div>
+                                    <p>Acceptez-vous de soumettre vos résultats de manière anonyme ? Il vous suffit simplement de cliquer sur ce bouton.</p>
+                                </div>
+                                <div>
+                                    <a id="results-send" class="button highlight inline">Participer à ce graphique !</a>
+                                    <a id="sendaaaa" class="button gray inline infobox tooltip">?
+                                        <span class="tooltiptext">
+                                            Ce bouton permet d'envoyer vos réponses aux questions du test.
+                                            Ces réponses serviront à calculer le score global et à générer des rapports publics sur des questions spécifiques de ce test.
+                                            <br /><br />
+                                            Votre adresse IP sera également enregistrée, mais de manière complètement dissociée de vos résultats : elle n'est conservée que pour limiter l'utilisation abusive de ce système. Pour plus d'informations, rendez-vous dans "Informations sur ce site" -&gt; "Politique de confidentialité".
+                                            <br /><br />
+                                            Merci de votre participation !
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <a id="results-details" class="button info inline hidden">Voir les détails</a>
+                        <br />
+                        <br />
+                    </div>
+                    <a id="results-scroll-arrow" class="scroll-down-link scroll-down-arrow hidden"></a>
+                </div>
+                <div id="test-progress-bottom" class="progress fullwidth">
+                    <span style="width: 0%;"></span>
+                </div>
+            </div>
+        </div>
+        <div id="why-view" class="main-view why-view flex hidden overflow-y">
+            <div class="contents fullwidth">
+                <div class="flex">
+                    <a id="why-back-top" class="button info inline why-back">Retour au site</a>
+                </div>
+                <div class="faq-intro">
+                    <p>Bonjour&nbsp;! Bienvenue sur QuelParti. Si vous avez apprécié ce test, découvrez également les initiatives qui l'ont inspiré :</p>
+                    <ul>
+                        <li><a href="https://projetarcadie.com/">Le Projet Arcadie</a> : Base de données sur les parlementaires français</li>
+                        <li><a href="https://datan.fr/">Datan</a> : Site de vulgarisation parlementaire</li>
+                        <li><a href="https://politiscales.fr/">PolitiScales</a> : Test politique en ligne</li>
+                        <li><a href="https://8values.github.io/">8values</a> : Test politique en ligne, équivalent anglais à PolitiScales</li>
+                        <li><a href="https://www.macron.watch/">Macron.watch</a> : Recensement des actions du gouvernement Macron</li>
+                        <li><a href="https://www.nosdeputes.fr/">NosDéputés.fr</a> : Observatoire citoyen de l'activité parlementaire</li>
+                    </ul>
+                    <p>Remerciements particuliers pour les techniciens et techniciennes qui entretiennent les données ouvertes de l'Assemblée Nationale, sans quoi QuelParti n'aurait pu voir le jour.</p>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-row">
+                        <div class="faq-col">
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q1_1">
+                                    <label class="tab-label" for="q1_1">Qui vous paye ?</label>
+                                    <div class="tab-content">
+                                        Cette initiative est financée par vos dons : <a href="https://liberapay.com/QuelParti">Liberapay</a> pour les dons récurrents, <a href="https://www.buymeacoffee.com/quelparti">Buymeacoffee</a> pour les dons ponctuels. Je suis un développeur indépendant, je travaille sur cette plateforme sur mon temps libre.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q1_2">
+                                    <label class="tab-label" for="q1_2">À quoi sert cette plateforme ?</label>
+                                    <div class="tab-content">
+                                        Le test politique proposé par cette plateforme calcule, en fonction de vos réponses aux questions, le groupe politique et le député les plus proches de vos positions politiques.
+                                        <br />
+                                        Il n'a pas pour but de vous indiquer ou suggérer pour qui/quoi voter, mais peut alimenter votre réflexion et vous amener à questionner votre raisonnement.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q1_3">
+                                    <label class="tab-label" for="q1_3">Ne suffit-il pas de juger un parti à son programme ?</label>
+                                    <div class="tab-content">
+                                        Il peut être difficile de juger un parti ou une personnalité politique à son programme à cause de son caractère très promotionnel et subjectif.
+                                        <br />
+                                        Ce test ne s'appuie pas sur des promesses ou de positions supposées, mais bien de prises de position claires et actées collectivement (des votes dans l'hémicycle), directement récupérées depuis les sources officielles : les données ouvertes de l'Assemblée Nationale.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q1_4">
+                                    <label class="tab-label" for="q1_4">Comment les scores sont-ils calculés ?</label>
+                                    <div class="tab-content">
+                                        Pour chaque scrutin examiné, il est possible de voter pour, contre ou de s'abstenir.
+                                        <br />
+                                        Tous les députés et les groupes politiques commencent avec 0 point.
+                                        <br />
+                                        Chaque député ou groupe politique qui correspond à votre avis gagne un point. À l'inverse, si l'avis du député ou groupe politique est opposé au vôtre, il perdra un point.
+                                        <br />
+                                        Si vous choisissez de vous abstenir, les députés ou groupes politiques qui s'abstiennent également gagneront un point.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q1_5">
+                                    <label class="tab-label" for="q1_5">À quoi sert l'abstention ?</label>
+                                    <div class="tab-content">
+                                        À l'Assemblée, l'abstention peut être utilisée pour manifester un désaccord partiel avec le texte proposé (par exemple un désaccord sur la forme, mais un accord sur le fond). Il s'agit donc d'un positionnement politique et pas toujours d'un simple "Je ne sais pas".
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q1_6">
+                                    <label class="tab-label" for="q1_6">Que représente le score global ?</label>
+                                    <div class="tab-content">
+                                        Sur la page des résultats, le score global est calculé à partir de tous les scores personnels qui ont été envoyés au serveur de QuelParti (votre consentement est demandé avec le bouton "Participer au graphique").
+                                        <br />
+                                        Les résultats sont calculés par <a href="https://fr.wikipedia.org/wiki/Jugement_majoritaire" target="_blank">jugement majoritaire</a> : le score de chaque groupe politique est déterminé par la médiane de tous ses scores.
+                                        <br />
+                                        Interprétez cependant ces résultats avec <a href="https://www.hacking-social.com/2014/06/23/sondages-statistiques-chiffres-ne-plus-se-faire-avoir/" target="_blank">la plus grande prudence</a>.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-row">
+                        <div class="faq-col">
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q2_1">
+                                    <label class="tab-label" for="q2_1">Quel groupe politique soutenez-vous ?</label>
+                                    <div class="tab-content">
+                                        Cette plateforme ne soutient ou ne promeut aucun groupe ou parti politique en particulier.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q2_2">
+                                    <label class="tab-label" for="q2_2">Comment fonctionne cette plateforme ?</label>
+                                    <div class="tab-content">
+                                        Le test politique contient des questions déjà posées au sein de l'Assemblée Nationale, sur lesquelles les députés ont déjà débattu et voté.
+                                        <br />
+                                        Les arguments des débats sur chaque question ont éte repris et synthétisés. Il vous est demandé de les examiner et de voter à votre tour.
+                                        <br />
+                                        Vos réponses sont ensuite comparées aux votes de l'ensemble des députés pour calculer votre résultat.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q2_3">
+                                    <label class="tab-label" for="q2_3">Comment sont choisies les questions du test ?</label>
+                                    <div class="tab-content">
+                                        <a href="#" target="_blank">Consultez la méthodologie.</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q2_4">
+                                    <label class="tab-label" for="q2_4">Pourquoi certains sujets ne sont pas abordés ?</label>
+                                    <div class="tab-content">
+                                        Pour rendre ce test réalisable en peu de temps, le nombre de questions a été limité à 15 ; par conséquent, de nombreux sujets n'ont pas pu y être intégrés.
+                                        <br />
+                                        De plus, afin que l'on puisse répondre aux questions avec peu de contexte (un résumé du scrutin en trois paragraphes : description, arguments pour et contre), certaines questions ont été évitées, notamment la réforme des retraites, la loi Pacte, le verrou de Bercy ou encore la désolidarisation des revenus de l'AAH, car elles étaient trop difficiles à synthétiser.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q2_5">
+                                    <label class="tab-label" for="q2_5">Pourquoi n'y a-t-il pas de bouton "Pas d'avis" ?</label>
+                                    <div class="tab-content">
+                                        Le principe de ce test est de vous mettre à la place d'un député : votre avis est systématiquement sollicité pour tout un tas de questions et vous devez avoir une réponse à tout.
+                                        <br />
+                                        Qui plus est, pour que les résultats de ce test soient significatifs, il est nécessaire d'obtenir un maximum de réponses de votre part.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q2_6">
+                                    <label class="tab-label" for="q2_6">Il manque des groupes politiques !</label>
+                                    <div class="tab-content">
+                                        Non, vous confondez probablement "groupes politiques" et "partis politiques". Par exemple, le parti du Rassemblement National n'est représenté que par 6 personnes à l'Assemblée sur 577, alors qu'un minimum de 15 personnes est nécessaire pour constituer un groupe politique.
+                                        <br />
+                                        Ces députés qui ne font pas partie d'un groupe peuvent alors se rattacher à un autre groupe politique existant, ou s'identifier comme "non-inscrit".
+                                        <br />
+                                        Les députés non-inscrits ne constituent pas un groupe politique à proprement parler car il n'y a pas de cohésion entre ses membres.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-row">
+                        <div class="faq-col">
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q3_1">
+                                    <label class="tab-label" for="q3_1">Politique de confidentialité</label>
+                                    <div class="tab-content">
+                                        <b>Lorsque vous visitez QuelParti.fr</b>
+                                        <br />
+                                        Aucune forme de pistage publicitaire n'est effectuée sur ce site. Les données récoltées par QuelParti servent uniquement à mesurer la fréquentation du site. Conformément à la loi, des journaux système sont conservés pour une durée de 14 jours avant d'être anonymisés. Ces journaux ne peuvent pas contenir de donnée politique.
+                                        <br />
+                                        Deux cookies techniques sont déposés dans votre navigateur : un cookie permettant de garantir l'authenticité de vos requêtes ("token CSRF") et un cookie contenant un horodatage permettant de calculer le temps que vous avez passé sur le test. Ces deux cookies sont essentiels pour garantir le bon fonctionnement de notre plateforme.
+                                        <br /><br />
+                                        <b>Lorsque vous participez au test</b>
+                                        <br />
+                                        Le stockage persistant de votre navigateur (localStorage) est utilisé afin de garder vos réponses en mémoire pour votre prochaine visite. Ces données sont uniquement stockées sur votre ordinateur et peuvent être effacées en cliquant sur "Recommencer le test" depuis la page des résultats.
+                                        <br /><br />
+                                        <b>Lorsque vous consentez à envoyer vos résultats au test</b>
+                                        <br />
+                                        Vos réponses aux questions, votre temps passé sur le test et votre adresse IP sont enregistrés.
+                                        <br />
+                                        Votre adresse IP et vos résultats sont <b>stockés séparément</b>. Tous les moyens techniques sont mis en oeuvre afin qu'il ne soit pas techniquement possible de lier votre participation avec vos réponses.
+                                        <br />
+                                        Stocker votre adresse IP garantit à QuelParti.fr un niveau de sécurité raisonnable (mais pas absolu) contre toute tentative de fausser les résultats du score global. Toutes les adresses IP seront effacées lorsque la phase de collecte des résultats arrivera à son terme ; cette durée ne peut excéder un an à compter de la date du lancement du test.
+                                        <br />
+                                        Stocker vos réponses permet de calculer le score global. Vos réponses peuvent également être utilisées pour présenter des rapports publics sur certaines questions spécifiques de ce test.
+                                        <br /><br />
+                                        Ces données ne seront jamais revendues, transmises ou divulgées à des tiers, et ne seront pas utilisées dans d'autres cadres que la publication de statistiques anonymisées ou des rapports publics mentionnés ci-dessus.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tabs">
+                                <div class="tab">
+                                    <input class="faq" type="checkbox" id="q3_2">
+                                    <label class="tab-label" for="q3_2">Mentions légales</label>
+                                    <div class="tab-content">
+                                        La plateforme QuelParti.fr est éditée par <i>Nathanaël Wyles</i>, demeurant à Paris.
+                                        <br />
+                                        La plateforme QuelParti.fr est hébergée par la société PulseHeberg, SAS immatriculée au 824 070 619 RCS Nanterre, numéro de TVA FR 29 824 070 619, ayant pour siège social 55 avenue des champs Pierreux, 92012 Nanterre Cedex.
+                                        <br /><br />
+                                        Les portraits des députés sur la page des résultats appartiennent à l'Assemblée Nationale. Les vignettes représentant les logos des groupes politiques sont la propriété des groupes politiques respectifs.
+                                        <br />
+                                        Les autres ressources graphiques, les textes, le nom de domaine, le code source du client et du serveur, les scripts utilisés, les résultats du test et la disposition des données sur ce site sont la propriété de <i>Nathanaël Wyles</i> et <a href="https://github.com/QuelParti/QuelParti" target="_blank">disponibles en libre accès sous la licence libre AGPLv3</a>.
+                                        <br /><br />
+                                        Pour toute réclamation, envoyez un message à l'adresse suivante : contact <i>[arobase]</i> quelparti<i>.</i>fr.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <a id="why-back-bottom" class="button info inline why-back">Retour au site</a>
+                </div>
+                <br />
+            </div>
+        </div>
+        <label id="sidebar-pin" class="sidebar-pin" for="sidebar-pin-check">☰ <span>Détails</span></label>
+        <input type="checkbox" id="sidebar-pin-check" class="hidden sidebar-pin-check" />
+        <div class="choices-sidebar overflow-y fade-in-right">
+            <label id="sidebar-close" class="sidebar-close" for="sidebar-pin-check">✕ <span>Fermer</span></label>
+            <br />
+            <div class="sidebar-inner">
+                <img alt="QuelParti.fr – Choisissez votre coalition" class="app-logo" src="/assets/img/logo/svg/white.svg" />
+                <br />
+                <a id="sidebar-why" class="button info">Informations sur ce site</a>
+                <br />
+                <a id="sidebar-edit-answers" class="button highlight disabled">Voir les résultats</a>
+                <br />
+                <a id="sidebar-toggle-matches" class="button info disabled">Afficher les correspondances</a>
+            </div>
+            <div id="matches-box" class="sidebar-inner hidden">
+                <br />
+                <div class="choices-box">
+                    <h4>Groupes politiques</h4>
+                    <div id="choices-groupes" class="choices-list hidden">
+                    </div>
+                </div>
+                <br />
+                <div class="choices-box">
+                    <h4>Députés</h4>
+                    <div id="choices-deputes" class="choices-list hidden">
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-inner">
+                <br />
+                <a class="button info" href="#" target="_blank">Contribuer !</a>
+                <br />
+                <a class="button info" href="#" target="_blank">Code source</a>
+                <br />
+                <div class="net-box flex">
+                    <a class="button info" rel="me" href="https://twitter.com/QuelParti" target="_blank"><img src="/assets/img/thirdparty/t.svg" /></a>
+                    <a class="button info" rel="me" href="https://pouet.chapril.org/@QuelParti" target="_blank"><img src="/assets/img/thirdparty/mastodon.svg" /></a>
+                    <a class="button info" rel="me" href="https://github.com/QuelParti/QuelParti" target="_blank"><img src="/assets/img/thirdparty/git.svg" /></a>
+                    <a class="button info" rel="me" href="https://liberapay.com/QuelParti" target="_blank"><img src="/assets/img/thirdparty/lp.svg" /></a>
+                    <a class="button info" rel="me" href="https://www.buymeacoffee.com/quelparti" target="_blank"><img src="/assets/img/thirdparty/buymeacoffee.svg" /></a>
+                </div>
+            </div>
+            <br />
+        </div>
+    </body>
+</html>
