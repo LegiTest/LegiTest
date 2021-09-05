@@ -235,7 +235,7 @@ async function fetchResults() {
     })
     .catch(function (err) {
         console.log(err);
-        alert("Une erreur est survenue pendant le chargement des résultats. Veuillez actualiser la page.");
+        // silently skip results if we can't get them
     });
     console.log("Got results from API.");
 }
@@ -837,8 +837,12 @@ async function loadResults() {
 
     /* get and display the (holy?) graph */
     await sleep(600);
-    fadeIn(null, get("results-graph"), "fade-in-left", null);
-    await sleep(500);
+    
+    /* do not show global results if we couldn't get them */
+    if (Object.keys(results).length != 0) {
+        fadeIn(null, get("results-graph"), "fade-in-left", null);
+        await sleep(500);
+    }
 
     /* if the user has already sent their data, don't display the send card */
     if (!disable_submit && !has_sent_results) {
@@ -885,6 +889,11 @@ function displayResults() {
         results_perso_tpl += displayResults_tpl(groupes_perso, "opinion_pct");
     }
     get("match-view-content").innerHTML = results_perso_tpl;
+
+    if (Object.keys(results).length == 0) {
+        console.log("Global results unavailable.");
+        return ;
+    }
 
     results.groupes.sort(function (a, b) {
         return a.opinion_pct - b.opinion_pct;
