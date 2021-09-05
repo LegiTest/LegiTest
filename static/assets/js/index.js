@@ -1,5 +1,7 @@
 let has_sent_results = false;
 
+let disable_submit = false;
+
 let scrutins_list = {};
 let acteurs_list = {};
 let user_opinion = [];
@@ -217,7 +219,8 @@ async function fetchCsrfToken() {
     })
     .catch(function (err) {
         console.log(err);
-        alert("Une erreur s'est produite lors de la récupération du jeton CSRF. Veuillez actualiser la page.");
+        // silently disable submission if we can't get the CSRF token
+        disable_submit = true;
     });
     console.log("Got CSRF token from API.");
 }
@@ -825,20 +828,20 @@ async function loadResults() {
 
     displayResults();
 
-    await sleep(250);
+    await sleep(200);
     fadeIn(null, get("match-groupe"), "fade-in-left", null);
-    await sleep(650);
+    await sleep(600);
     fadeIn(null, get("match-depute"), "fade-in-left", null);
-    await sleep(650);
+    await sleep(600);
     fadeIn(null, get("match-view"), "fade-in-left", null);
 
     /* get and display the (holy?) graph */
-    await sleep(650);
+    await sleep(600);
     fadeIn(null, get("results-graph"), "fade-in-left", null);
-    await sleep(650);
+    await sleep(500);
 
     /* if the user has already sent their data, don't display the send card */
-    if (!has_sent_results) {
+    if (!disable_submit && !has_sent_results) {
         fadeIn(null, get("results-submit-div"), "fade-in-up", null);
         await sleep(50);
     }
@@ -851,9 +854,7 @@ async function loadResults() {
             get("test-results").removeEventListener("scroll", e_checkScroll);
         }
     });
-    
-
-    await sleep(650);
+    await sleep(100);
 
     fadeIn(null, get("results-details"), "fade-in-left", null);
 
