@@ -265,14 +265,10 @@ async function refreshSidebar() {
     get("choices-groupes").scrollTo(0, 0);
     fadeIn(null, get("choices-groupes"), "fade-in-right", null);
 
-    await sleep(100);
-
     /* List the top20 deputees in the sidebar */
     get("choices-deputes").innerHTML = generateDeputeesList();
     get("choices-deputes").scrollTo(0, 0);
     fadeIn(null, get("choices-deputes"), "fade-in-right", null);
-
-    await sleep(100);
 
     get("skip-intro").classList.remove("disabled");
     get("begin-test-intro").classList.remove("disabled");
