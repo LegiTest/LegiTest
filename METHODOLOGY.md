@@ -44,7 +44,8 @@ Tandis que certains tests politiques dépassent les 50 questions, le nombre de q
 
 Les critères suivants ont été définis pour décider des questions à inclure dans le test.
 
-Critères obligatoires :
+#### Critères obligatoires
+
 - La question a été traitée dans l'hémicycle de l'Assemblée nationale durant la XVe législature (2017-2022).
 - Le vote des députés sur cette question prend la forme d'un **[scrutin public](https://www2.assemblee-nationale.fr/scrutins/liste/%28legislature%29/15)**, dont les résultats sont accessibles depuis les données ouvertes de l'Assemblée nationale.
 - Il n'y a pas de consensus global au sein de l'Assemblée sur cette question : les réponses permettent de départager les députés et groupes politiques.
@@ -55,10 +56,13 @@ Critères obligatoires :
 - Toutes les sources officielles sont citées : le dossier législatif, le scrutin public, le compte rendu, l'amendement le cas échéant.
 - Le taux de participation au scrutin s'élève à 15 % minimum.
 
-Critères secondaires :
+#### Critères secondaires
 - Les résultats permettent de départager des groupes qui votent souvent ensemble :
     - LAREM-MODEM
     - LFI-SOC-GDR (LFI-SOC, SOC-GDR ou LFI-GDR)
+- Le résultat ne réunit pas deux groupes politiques sur un même vote pour deux raisons fortement opposées.
+    - *Exemple* : LR vote contre parce qu'ils estiment que le texte est trop laxiste, et LFI-SOC-GDR vote également contre parce qu'ils estiment que le texte est trop liberticide / extrême.
+    - Ce critère ne peut pas toujours être respecté en pratique (ex.: débat sur l'ISF, LPM 2019-2025, loi séparatisme...). Il convient de clarifier ces positions dans la description ou les arguments de la question.
 - Le taux de participation au scrutin s'élève à 30 % minimum.
 - Il s'agit d'une question particulièrement "polémique" : qui relève d'une problématique largement médiatisée ou relayée, qui a suscité d'importants mouvements sociaux (critère assez subjectif)
 - Le thème de la question est peu soulevé par les autres questions, et il n'existe pas de question portant sur un sujet similaire.
