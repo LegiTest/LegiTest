@@ -104,7 +104,7 @@ fn check_duration(s: &Session) -> Result<i32, InstanceError> {
 fn translate_ip(req: &HttpRequest) -> Result<(Ipv4Addr, IpNetwork), InstanceError> {
     // 5.a retreive client IP
     let client_inet = req.connection_info();
-    let client_inet = match client_inet.remote_addr() {
+    let client_inet = match client_inet.realip_remote_addr() {
         Some(v) => {
             v
         }
@@ -113,14 +113,6 @@ fn translate_ip(req: &HttpRequest) -> Result<(Ipv4Addr, IpNetwork), InstanceErro
                 ErrorKind::CritUnknownRemoteAddr,
                 format!("{:?}", req.connection_info()),
             ));
-        }
-    };
-
-    // this will suck when we will accept ipv6 (if we do someday)
-    let client_inet = match client_inet.split_once(':') {
-        Some(v) => v.0,
-        None => {
-            return Err(throw(ErrorKind::CritInetSplit, client_inet.to_string()));
         }
     };
 

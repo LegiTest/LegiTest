@@ -42,7 +42,6 @@ pub enum ErrorKind {
     WarnNoDurationCookie,   // duration cookie is missing
     SevereDurationOverflow, // duration is overflowing an i32
     CritUnknownRemoteAddr,  // failed to get client's remote address
-    CritInetSplit,          // failed to split the IP addr and remote port
     CritIpv4AddrConvert,    // failed to convert inet to ipv4addr
     CritIpNetworkConvert,   // failed to convert ipv4addr to ipnetwork
     CritInsertAddr,         // failed to insert a row in Addresses
