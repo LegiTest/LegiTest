@@ -144,7 +144,6 @@ window.onload = async function() {
         get("results-send").innerHTML = "Merci !";
     });
     fadeOut(get("results-send"), get("results-submit-div"), "fade-out-right", function() {
-        /* TODO: actually send the vote to backend */
         fetchSubmit();
         
         has_sent_results = true;
@@ -258,7 +257,6 @@ async function fetchSubmit() {
 
 async function refreshSidebar() {
     /* initialize user opinion */
-    /* TODO: load from cookie */
     /* opinion.deputes = all deputees with at least 1 matching vote */
     /* opinion.organes = all organes */
 
