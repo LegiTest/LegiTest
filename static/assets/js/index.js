@@ -205,7 +205,7 @@ async function fetchScrutins() {
         });
 
     await refreshSidebar();
-    await loadScrutinsTable();
+    //await loadScrutinsTable();
     console.log("Ready.");
 }
 
