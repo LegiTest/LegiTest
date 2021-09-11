@@ -1168,7 +1168,7 @@ input.faq:checked ~ .tab-content {
     .results-graph .chart-info {
         float: unset;
         margin-top: 10px;
-        display: block;
+        justify-items: start;
     }
 }
 

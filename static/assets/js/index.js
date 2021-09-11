@@ -49,15 +49,15 @@ window.onload = async function() {
     get("choices-main-table").classList.remove("hidden");*/
 
     /* "begin test" button */
-    fadeOut(get("begin-test-intro"), get("intro-welcome-text"), "fade-out-right", function() {
+    fadeOut(get("begin-test-intro"), get("intro-welcome-text"), "fade-out-left", function() {
         /* load question before fading in */
         let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-left", null);
+        fadeIn(null, get(menuType), "fade-in-right", null);
     });
 
-    fadeOut(get("begin-test-intro-results"), get("intro-welcome-text"), "fade-out-right", function() {
+    fadeOut(get("begin-test-intro-results"), get("intro-welcome-text"), "fade-out-left", function() {
         question_count = scrutins_list.length;
-        fadeIn(null, get("test-results"), "fade-in-left", null);
+        fadeIn(null, get("test-results"), "fade-in-right", null);
         loadResults();
     });
 
@@ -83,50 +83,56 @@ window.onload = async function() {
         }
     });
 
+    /* test "status" bar: set to 0% at test start */
+    get("test-progress-top-bar").style.width = '0%';
+    get("test-progress-bottom-bar").style.width = '0%';
+    get("test-progress-top-bar").classList.remove('hidden');
+    get("test-progress-bottom-bar").classList.remove('hidden');
+
     /* "Sources" button in test */
-    fadeOut(get("test-sources"), get("question-box"), "fade-out-up", function() {
-        fadeIn(null, get("sources-view"), "fade-in-down", null);
+    fadeOut(get("test-sources"), get("question-box"), "fade-out-down", function() {
+        fadeIn(null, get("sources-view"), "fade-in-up", null);
     });
 
-    fadeOut(get("sources-back"), get("sources-view"), "fade-out-down", function() {
-        fadeIn(null, get("question-box"), "fade-in-up", null);
+    fadeOut(get("sources-back"), get("sources-view"), "fade-out-up", function() {
+        fadeIn(null, get("question-box"), "fade-in-down", null);
     });
 
     /* "pour", "abstention", "contre" buttons */
-    fadeOut(get("test-vote-for"), get("question-box"), "fade-out-right", function() {
+    fadeOut(get("test-vote-for"), get("question-box"), "fade-out-left", function() {
         userVote("pour");
 
         let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-left", null);
+        fadeIn(null, get(menuType), "fade-in-right", null);
         if (menuType == "test-results") loadResults();
     });
 
-    fadeOut(get("test-vote-against"), get("question-box"), "fade-out-right", function() {
+    fadeOut(get("test-vote-against"), get("question-box"), "fade-out-left", function() {
         userVote("contre");
         
         let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-left", null);
+        fadeIn(null, get(menuType), "fade-in-right", null);
         if (menuType == "test-results") loadResults();
     });
 
-    fadeOut(get("test-vote-not"), get("question-box"), "fade-out-right", function() {
+    fadeOut(get("test-vote-not"), get("question-box"), "fade-out-left", function() {
         userVote("abstention");
         
         let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-left", null);
+        fadeIn(null, get(menuType), "fade-in-right", null);
         if (menuType == "test-results") loadResults();
     });
 
     /* back button */
-    fadeOut(get("test-back"), get("question-box"), "fade-out-left", function() {
+    fadeOut(get("test-back"), get("question-box"), "fade-out-right", function() {
         let menuType = askQuestion(--question_count);
-        fadeIn(null, get(menuType), "fade-in-right", null);
+        fadeIn(null, get(menuType), "fade-in-left", null);
     });
     
     /* back button on results screen */
-    fadeOut(get("test-back-results"), get("test-results"), "fade-out-left", function() {
+    fadeOut(get("test-back-results"), get("test-results"), "fade-out-right", function() {
         let menuType = askQuestion(--question_count);
-        fadeIn(null, get(menuType), "fade-in-right", null);
+        fadeIn(null, get(menuType), "fade-in-left", null);
         get("match-groupe").classList.add("hidden");
         get("match-depute").classList.add("hidden");
         get("match-view").classList.add("hidden");
@@ -143,7 +149,7 @@ window.onload = async function() {
     get("results-send").addEventListener('click', function () {
         get("results-send").innerHTML = "Merci !";
     });
-    fadeOut(get("results-send"), get("results-submit-div"), "fade-out-right", function() {
+    fadeOut(get("results-send"), get("results-submit-div"), "fade-out-left", function() {
         fetchSubmit();
         
         has_sent_results = true;
@@ -151,8 +157,8 @@ window.onload = async function() {
     });
 
     /* details button on results screen */
-    fadeOut(get("results-details"), get("intro"), "fade-out-right", viewDetails);
-    fadeOut(get("test-view-details"), get("intro"), "fade-out-right", viewDetails);
+    fadeOut(get("results-details"), get("intro"), "fade-out-left", viewDetails);
+    fadeOut(get("test-view-details"), get("intro"), "fade-out-left", viewDetails);
 
     /* return to begin test screen if test isn't complete */
     fadeOut(get("begin-test-from-table"), get("choices-main-table"), "fade-out-right", function() {
@@ -175,7 +181,7 @@ window.onload = async function() {
 function viewDetails() {
     loadScrutinsTable();
     get("sidebar-edit-answers").classList.remove("disabled");
-    fadeIn(null, get("choices-main-table"), "fade-in-left", null);
+    fadeIn(null, get("choices-main-table"), "fade-in-right", null);
 }
 
 async function fetchScrutins() {
@@ -823,30 +829,30 @@ async function loadResults() {
     displayResults();
 
     await sleep(200);
-    fadeIn(null, get("match-groupe"), "fade-in-left", null);
+    fadeIn(null, get("match-groupe"), "fade-in-right", null);
     await sleep(600);
-    fadeIn(null, get("match-depute"), "fade-in-left", null);
+    fadeIn(null, get("match-depute"), "fade-in-right", null);
     await sleep(600);
-    fadeIn(null, get("match-view"), "fade-in-left", null);
+    fadeIn(null, get("match-view"), "fade-in-right", null);
 
     /* get and display the (holy?) graph */
     await sleep(600);
     
     /* do not show global results if we couldn't get them */
     if (Object.keys(results).length != 0) {
-        fadeIn(null, get("results-graph"), "fade-in-left", null);
+        fadeIn(null, get("results-graph"), "fade-in-right", null);
         await sleep(500);
     }
 
     /* if the user has already sent their data, don't display the send card */
     if (!disable_submit && !has_sent_results) {
-        fadeIn(null, get("results-submit-div"), "fade-in-up", null);
+        fadeIn(null, get("results-submit-div"), "fade-in-right", null);
         enableDataTooltip();
         await sleep(50);
     }
     
     /* add scroll arrow and condition to make it disappear */
-    fadeIn(null, get("results-scroll-arrow"), "fade-in-left", null);
+    fadeIn(null, get("results-scroll-arrow"), "fade-in-right", null);
     get("test-results").addEventListener("scroll", function e_checkScroll(e) {
         if (((e.target.scrollTop * 100) / e.target.scrollTopMax) >= 90) {
             get("results-scroll-arrow").classList.add("hidden");
@@ -855,7 +861,7 @@ async function loadResults() {
     });
     await sleep(100);
 
-    fadeIn(null, get("results-details"), "fade-in-left", null);
+    fadeIn(null, get("results-details"), "fade-in-right", null);
 
     await sleep(100);
 
@@ -920,7 +926,7 @@ function displayResults() {
         <div class="chart-info">
             <span>Statistiques non disponibles</span>
             <span>Au moins 500 participations requises.</span>
-            <span>Encore ~${500-results.global.participations.valid} participations !</span>
+            <span>Encore ~${500-results.global.participations.valid} participations&nbsp;!</span>
         </div>
         `;
     }
