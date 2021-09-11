@@ -489,6 +489,7 @@ a.why-back {
     line-height: unset;
     font-size: unset;
     padding-top: 5px;
+    margin-bottom: 10px;
 }
 
 .net-box a:first-child {
@@ -1025,6 +1026,11 @@ input.faq:checked ~ .tab-content {
     width: 90%;
 }
 
+    
+.soc > label {
+    display: none;
+}
+
 /*animated scroll arrow animation*/
 @keyframes fade_move_down {
     0%   { transform:translate(0,-20px); opacity: 0;  }
@@ -1070,8 +1076,22 @@ input.faq:checked ~ .tab-content {
     }
 
     .main-box {
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+    .main-box-content {
+        width: 98%;
+    }
+
+    #test-vote-against,
+    #test-vote-not,
+    #test-vote-for,
+    #skip-intro,
+    #begin-test-intro,
+    #begin-test-intro-results {
+        width: 100%;
     }
 
     .main-view {
@@ -1107,8 +1127,15 @@ input.faq:checked ~ .tab-content {
         max-width: 250px;
     }
 
+    .faq-intro {
+        padding: 0.5rem 0.75rem;
+        margin: 1rem 0.5rem;
+        font-size: 18px;
+    }
+
     .faq-container {
         display: block;
+        margin: 0;
     }
 
     .tooltip .tooltiptext {
@@ -1125,6 +1152,23 @@ input.faq:checked ~ .tab-content {
     .net-box a {
         margin: unset;
         margin-bottom: 10px;
+        padding: 0 10px;
+    }
+
+    .button.soc {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .soc > label {
+        display: unset;
+    }
+    
+    .results-graph .chart-info {
+        float: unset;
+        margin-top: 10px;
+        display: block;
     }
 }
 

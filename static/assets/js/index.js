@@ -886,6 +886,9 @@ function displayResults() {
         // instead of -scrutins_list.length -> +scrutins_list.length
         let orgscore_100 = ((orgscore + scrutins_list.length) / (scrutins_list.length * 2) * 100).toFixed(1);
 
+        // transform 100.0% into 100% (less characters, better display)
+        orgscore_100 = (orgscore_100 == 100 ? 100 : orgscore_100);
+
         let groupes_perso = {};
         groupes_perso["id"] = get("choices-groupes").children[i].dataset.id;
         groupes_perso["opinion_pct"] = orgscore_100;
