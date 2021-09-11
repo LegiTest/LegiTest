@@ -1,5 +1,7 @@
 # QuelParti.fr
 
+![QuelParti.fr](/static/assets/img/banner/banner.png)
+
 Choisissez votre coalition.
 
 [Faites le test.](https://quelparti.fr)
