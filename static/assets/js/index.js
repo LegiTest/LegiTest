@@ -1,3 +1,5 @@
+"use strict";
+
 let has_sent_results = false;
 
 let disable_submit = false;
