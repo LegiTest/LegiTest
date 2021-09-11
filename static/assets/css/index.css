@@ -502,13 +502,6 @@ a.why-back {
 .choices-main-table {
     width: 100%;
     display: grid;
-    /*padding: 0 1rem;*/
-    /*height: 100%;*/
-    /*display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    max-width: 50vw;
-    margin-top: 50px;*/
 }
 
 /* main view: scrutins table */
@@ -1017,50 +1010,19 @@ input.faq:checked ~ .tab-content {
     animation: fade_move_down 1.4s ease-in-out infinite;
 }
 
-/* first tooltip code found on w3schools */
-
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-  font-weight: unset !important;
-
+.tooltiptext {
+    position: absolute;
+    z-index: 6;
+    background-color: var(--dark-element-bg);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: center;
 }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 600px;
-  background-color: #080d11f0;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 25px;
-  position: absolute;
-  z-index: 1;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -475px;
-  opacity: 0;
-  transition: opacity 0.5s;
-  line-height: 1.5rem;
-  font-size: 18px;
-  cursor: unset;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-.tooltip .tooltiptext::after {
-  content: " ";
-  position: absolute;
-  top: 100%; /* At the bottom of the tooltip */
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #080d11f0 transparent transparent transparent;
+.tooltiptext > span {
+    width: 90%;
 }
 
 /*animated scroll arrow animation*/
@@ -1140,7 +1102,7 @@ input.faq:checked ~ .tab-content {
     .results-card.results-match {
         width: calc(90% + 1.5rem);
     }
-    
+
     .app-logo {
         max-width: 250px;
     }

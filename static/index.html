@@ -10,7 +10,7 @@
         <meta property="og:description" content="Découvrez le parti politique qui vous ressemble. Faites le test !" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://quelparti.fr/" />
-        <meta property="og:image" content="http://quelparti.fr/assets/img/banner/banner.png" />
+        <meta property="og:image" content="https://quelparti.fr/assets/img/banner/banner.png" />
         <meta property="twitter:site" content="@QuelParti" />
         <meta property="twitter:site:id" content="@QuelParti" />
         <meta property="twitter:creator" content="@QuelParti" />
@@ -19,9 +19,9 @@
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:site_name" content="QuelParti.fr" />
         <link rel="preload" href="/assets/fonts/exo2-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-        <link rel="stylesheet" href="/assets/css/index.css?v=2"/>
+        <link rel="stylesheet" href="/assets/css/index.css?v=3"/>
         <link rel="icon" href="/assets/img/favicon/favicon.svg" type="image/svg+xml">
-        <script src="/assets/js/index.js?v=3"></script>
+        <script src="/assets/js/index.js?v=4"></script>
     </head>
     <body>
         <div class="main-view flex overflow-y">
@@ -142,16 +142,7 @@
                                 </div>
                                 <div>
                                     <a id="results-send" class="button highlight inline">Participer à ce graphique !</a>
-                                    <a class="button gray inline infobox tooltip">?
-                                        <span class="tooltiptext">
-                                            Ce bouton permet d'envoyer vos réponses aux questions du test.
-                                            Ces réponses serviront à calculer le score global et à générer des rapports publics sur des questions spécifiques de ce test.
-                                            <br /><br />
-                                            Votre adresse IP sera également enregistrée, mais de manière complètement dissociée de vos résultats : elle n'est conservée que pour limiter l'utilisation abusive de ce système. Pour plus d'informations, rendez-vous dans "Informations sur ce site" -&gt; "Politique de confidentialité".
-                                            <br /><br />
-                                            Merci de votre participation !
-                                        </span>
-                                    </a>
+                                    <a id="data-tooltip-button" class="button gray inline infobox">?</a>
                                 </div>
                             </div>
                         </div>
@@ -164,6 +155,18 @@
                 </div>
                 <div id="test-progress-bottom" class="progress fullwidth">
                     <span style="width: 0%;"></span>
+                </div>
+                <div id="data-tooltip" class="tooltiptext hidden overflow-y">
+                    <span>
+                        <br />
+                        Ce bouton permet d'envoyer vos réponses aux questions du test.
+                        Ces réponses serviront à calculer le score global et à générer des rapports publics sur des questions spécifiques de ce test.
+                        <br /><br />
+                        Votre adresse IP sera également enregistrée, mais de manière complètement dissociée de vos résultats : elle n'est conservée que pour limiter l'utilisation abusive de ce système. Pour plus d'informations, rendez-vous dans "Informations sur ce site" -&gt; "Politique de confidentialité".
+                        <br /><br />
+                        Merci de votre participation !
+                        <br />
+                    </span>
                 </div>
             </div>
         </div>

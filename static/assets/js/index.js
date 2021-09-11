@@ -841,6 +841,7 @@ async function loadResults() {
     /* if the user has already sent their data, don't display the send card */
     if (!disable_submit && !has_sent_results) {
         fadeIn(null, get("results-submit-div"), "fade-in-up", null);
+        enableDataTooltip();
         await sleep(50);
     }
     
@@ -862,6 +863,14 @@ async function loadResults() {
     get("test-reset").classList.remove("disabled");
     get("test-view-details").classList.remove("disabled");
 
+}
+
+function enableDataTooltip() {
+    let tooltip_button = get("data-tooltip-button");
+    let tooltip_elem = get("data-tooltip");
+
+    fadeIn(tooltip_button, tooltip_elem, "fade-in-up", null);
+    fadeOut(tooltip_elem, tooltip_elem, "fade-out-down", null);
 }
 
 function displayResults() {
