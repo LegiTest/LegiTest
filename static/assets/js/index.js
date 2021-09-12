@@ -103,26 +103,17 @@ window.onload = async function() {
     /* "pour", "abstention", "contre" buttons */
     fadeOut(get("test-vote-for"), get("question-box"), "fade-out-left", function() {
         userVote("pour");
-
-        let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-right", null);
-        if (menuType == "test-results") loadResults();
+        nextQuestion();
     });
 
     fadeOut(get("test-vote-against"), get("question-box"), "fade-out-left", function() {
         userVote("contre");
-        
-        let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-right", null);
-        if (menuType == "test-results") loadResults();
+        nextQuestion();
     });
 
     fadeOut(get("test-vote-not"), get("question-box"), "fade-out-left", function() {
         userVote("abstention");
-        
-        let menuType = askQuestion(++question_count);
-        fadeIn(null, get(menuType), "fade-in-right", null);
-        if (menuType == "test-results") loadResults();
+        nextQuestion();
     });
 
     /* back button */
@@ -178,6 +169,14 @@ window.onload = async function() {
         localStorage.clear();
         location.reload();
     });
+}
+
+function nextQuestion() {
+    let menuType = askQuestion(++question_count);
+    fadeIn(null, get(menuType), "fade-in-right", null);
+    get("question-box").scrollTo(0,0);
+    get("question-content").scrollTo(0,0);
+    if (menuType == "test-results") loadResults();
 }
 
 function viewDetails() {
