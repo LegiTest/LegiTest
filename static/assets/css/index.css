@@ -485,7 +485,7 @@ a.why-back {
 
 .net-box a {
     flex-grow: 1;
-    margin: 0 0.5rem;
+    margin: 0 0.3rem;
     line-height: unset;
     font-size: unset;
     padding-top: 5px;
@@ -1116,11 +1116,11 @@ input.faq:checked ~ .tab-content {
     }
 
     .results-card {
-        width: 90%;
+        width: 93%;
     }
 
     .results-card.results-match {
-        width: calc(90% + 1.5rem);
+        width: calc(93% + 1.5rem);
     }
 
     .app-logo {
