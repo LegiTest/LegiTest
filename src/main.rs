@@ -9,6 +9,7 @@ extern crate diesel;
 #[macro_use]
 extern crate diesel_migrations;
 
+mod abuseipdb;
 mod config;
 mod database;
 mod errors;
@@ -21,6 +22,7 @@ use actix_session::CookieSession;
 use actix_web::cookie::SameSite;
 use actix_web::web::{Data, JsonConfig};
 use actix_web::{App, HttpServer};
+use awc::Client;
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
 
@@ -90,6 +92,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(pool.clone()))
+            .app_data(Data::new(Client::default()))
             .app_data(
                 JsonConfig::default()
                     .limit(4096)
@@ -112,7 +115,7 @@ async fn main() -> std::io::Result<()> {
         g_instance.config.bind_address.as_str(),
         g_instance.config.bind_port,
     ))?
-        .workers(16)
+    .workers(16)
     .system_exit()
     .run()
     .await

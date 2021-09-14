@@ -92,19 +92,20 @@ impl ErrorKind {
     }
 
     pub fn is_client_error(&self) -> bool {
-        matches!(self,
+        matches!(
+            self,
             ErrorKind::WarnSetCsrfCookie
-            | ErrorKind::WarnSetDurationCookie
-            | ErrorKind::WarnGetCsrfCookie
-            | ErrorKind::WarnNoCsrfCookie
-            | ErrorKind::WarnDecodeCsrfCookie
-            | ErrorKind::WarnDecodeCsrfToken
-            | ErrorKind::WarnGetDurationCookie
-            | ErrorKind::WarnNoDurationCookie
-            | ErrorKind::SevereDurationOverflow
-            | ErrorKind::WarnSubmitNoPlatform
-            | ErrorKind::WarnCsrfTokenInvalid
-            | ErrorKind::WarnInvalidAnswer
+                | ErrorKind::WarnSetDurationCookie
+                | ErrorKind::WarnGetCsrfCookie
+                | ErrorKind::WarnNoCsrfCookie
+                | ErrorKind::WarnDecodeCsrfCookie
+                | ErrorKind::WarnDecodeCsrfToken
+                | ErrorKind::WarnGetDurationCookie
+                | ErrorKind::WarnNoDurationCookie
+                | ErrorKind::SevereDurationOverflow
+                | ErrorKind::WarnSubmitNoPlatform
+                | ErrorKind::WarnCsrfTokenInvalid
+                | ErrorKind::WarnInvalidAnswer
         )
     }
 }

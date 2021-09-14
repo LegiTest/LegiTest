@@ -118,7 +118,7 @@ pub fn generate_report(
                     ErrorKind::FatalInvalidScoreConv,
                     format!("{:?}", scores),
                 ));
-            },
+            }
         };
         all_scores.insert(subid, entry_score);
     }
@@ -168,7 +168,9 @@ fn calc_median(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) -> f32
     group_allscores.sort_by(|a, b| a.partial_cmp(b).expect("There's a NaN!!!"));
 
     // return the median
-    if let Some(v) = group_allscores.get(group_allscores.len() / 2) { *v } else {
+    if let Some(v) = group_allscores.get(group_allscores.len() / 2) {
+        *v
+    } else {
         eprintln!(
             "error: couldn't calculate the median score for a group: {:?}",
             group_allscores

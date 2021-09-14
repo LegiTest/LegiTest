@@ -1,15 +1,16 @@
-use abuseipdb::Client;
 use actix_session::Session;
 use actix_web::http::StatusCode;
 use actix_web::{post, web, HttpRequest, HttpResponse, Result};
+use awc::Client;
 use chrono::offset::Utc;
 use chrono::DateTime;
 use csrf::{AesGcmCsrfProtection, CsrfProtection};
 use ipnetwork::IpNetwork;
+use std::convert::TryFrom;
 use std::net::AddrParseError;
 use std::net::Ipv4Addr;
-use std::convert::TryFrom;
 
+use crate::abuseipdb::query_abuse;
 use crate::config::global::{AC_IPABUSEDB_FAIL, AC_IP_NOT_WHITELISTED};
 use crate::config::structs::{InstanceInfo, Platform};
 use crate::database::models::InsertableSubmissions;
@@ -105,9 +106,7 @@ fn translate_ip(req: &HttpRequest) -> Result<(Ipv4Addr, IpNetwork), InstanceErro
     // 5.a retreive client IP
     let client_inet = req.connection_info();
     let client_inet = match client_inet.realip_remote_addr() {
-        Some(v) => {
-            v
-        }
+        Some(v) => v,
         None => {
             return Err(throw(
                 ErrorKind::CritUnknownRemoteAddr,
@@ -186,6 +185,7 @@ fn save_to_db(
 #[post("/api/submit")]
 pub async fn submit(
     dbpool: web::Data<DbPool>,
+    web_client: web::Data<Client>,
     match_post: web::Json<MatchData>,
     req: HttpRequest,
     s: Session,
@@ -302,11 +302,14 @@ pub async fn submit(
     }
 
     // 10. ask ipabusedb for confidence score
-    // TODO: test with real IP
-    let client = Client::new(&g_instance.config.abuseipdb_api_key);
-    let response = client.check(client_inet.into(), None, false).await;
+    let ipdb_response = query_abuse(
+        &web_client,
+        client_inet.to_string(),
+        &g_instance.config.abuseipdb_api_key,
+    )
+    .await;
 
-    let response = match response {
+    let ipdb_response = match ipdb_response {
         Ok(r) => r,
         Err(e) => {
             save_to_db(
@@ -318,22 +321,8 @@ pub async fn submit(
                 duration,
                 client_ipnetwork,
             )?;
-            return Err(throw(ErrorKind::CritAbuseIpDbApiFail, format!("{:?}", e)));
+            return Err(throw(ErrorKind::CritAbuseIpDbApiFail, e));
         }
-    };
-
-    // prints the rate limits
-    println!(
-        "Abuse Confidence Score: {}\nAbuseIPdb rate limit: {} / {}",
-        response.data.abuse_confidence_score,
-        response.rate_limit.remaining,
-        response.rate_limit.limit
-    );
-
-    // cap abuse confidence score to 100 just in case
-    let acscore = match response.data.abuse_confidence_score {
-        0..=100 => u16::try_from(response.data.abuse_confidence_score).unwrap_or(100),
-        _ => 100,
     };
 
     save_to_db(
@@ -341,7 +330,7 @@ pub async fn submit(
         &match_post.results,
         platform,
         client_asn,
-        acscore,
+        ipdb_response,
         duration,
         client_ipnetwork,
     )?;
