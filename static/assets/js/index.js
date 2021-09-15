@@ -259,7 +259,16 @@ async function fetchSubmit() {
         }
     })
         .then(response => response.text())
-        .then(text => console.log(`Server returned ${text}.`));
+        .then(function (text) {
+            console.log(`Server returned ${text}.`)
+            if (text != "OK")
+            {
+                alert(text);
+            }
+        })
+    .catch(function (err) {
+        console.log(err);
+    });
 }
 
 async function refreshSidebar() {
