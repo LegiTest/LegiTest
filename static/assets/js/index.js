@@ -216,7 +216,7 @@ async function fetchScrutins() {
 }
 
 async function fetchCsrfToken() {
-    await fetch(`/api/csrftoken`)
+    await fetch(`/api/csrftoken`, {cache: "no-store"})
     .then(function (response) {
         return response.json();
     })
@@ -232,7 +232,7 @@ async function fetchCsrfToken() {
 }
 
 async function fetchResults() {
-    await fetch(`/api/results`)
+    await fetch(`/api/results`, {cache: "no-store"})
     .then(function (response) {
         return response.json();
     })
