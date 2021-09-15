@@ -909,7 +909,7 @@ function displayResults() {
     }
 
     results.groupes.sort(function (a, b) {
-        return a.opinion_pct - b.opinion_pct;
+        return a.value_median - b.value_median;
     }).reverse();
 
     // global score display
@@ -917,12 +917,13 @@ function displayResults() {
     for (let i = 0; i < results.groupes.length; i++) {
         let display = acteurs_list.organes[acteurs_list.organes.findIndex(o => o.id == results.groupes[i].id)].display;
         if (display) {
+            results.groupes[i]["value_median"] = results.groupes[i]["value_median"].toFixed(1);
             results_tpl += displayResults_tpl(results.groupes[i], "value_median");
         }
     }
 
     /* display another message if the stats are not ready */
-    if (results.global.participations.valid < 500) {
+    if (results.global.participations.total < 500) {
         results_tpl += `
         <div class="chart-info">
             <span>Statistiques non disponibles</span>
