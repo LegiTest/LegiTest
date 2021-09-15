@@ -119,11 +119,11 @@ impl Results {
         i_platform_id: i16,
         conn: &DbConn,
     ) -> Result<Option<Results>, diesel::result::Error> {
-        use crate::database::schema::results::dsl::{generated_at, platform_id, results};
+        use crate::database::schema::results::dsl::{id, generated_at, platform_id, results};
 
         results
             .filter(platform_id.eq(i_platform_id))
-            .order(generated_at.desc())
+            .order((generated_at.desc(), id.desc()))
             .first(conn)
             .optional()
     }
