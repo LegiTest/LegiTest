@@ -158,7 +158,7 @@ window.onload = async function() {
         fadeIn(null, get("intro"), "fade-in-left", null);
     });
 
-    /* return to results with edit answers button */
+    /* return to results with view answers button */
     fadeOut(get("sidebar-edit-answers"), get("choices-main-table"), "fade-out-right", function() {
         get("sidebar-edit-answers").classList.add("disabled");
         fadeIn(null, get("intro"), "fade-in-left", null);
@@ -987,15 +987,4 @@ function fmt(unsafe) {
     else {
         return null;
     }
-}
-
-/* function from PolitiScales, MIT license */
-function download_image() {
-      let canvas = document.getElementById("generatedResults");
-      let link = document.createElement("a");
-      link.href = canvas.toDataURL();
-      link.download = "QuelParti_"+new Date().toLocaleDateString()+".png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
 }
