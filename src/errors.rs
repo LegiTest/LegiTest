@@ -133,7 +133,7 @@ impl error::ResponseError for InstanceError {
             eprintln!("Error reached: {}", self);
         }
 
-        let body = if self.kind.is_info() && g_instance.config.hide_errors {
+        let body = if self.kind.is_info() || (self.kind.is_client_error() && g_instance.config.hide_errors) {
             "OK"
         } else {
             "Une erreur a \u{e9}t\u{e9} rencontr\u{e9}e lors de l'ex\u{e9}cution de votre requ\u{ea}te. Veuillez r\u{e9}essayer plus tard !"
