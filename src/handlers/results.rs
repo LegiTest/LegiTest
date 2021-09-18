@@ -72,7 +72,7 @@ pub async fn results(
         for group in &platform.groups {
             placeholder_results.push(ResultsPublicGroupes {
                 id: *group,
-                value_median: 10.0_f32,
+                value_median: 0_f32,
             });
         }
 
