@@ -500,6 +500,11 @@ a.why-back {
     margin-right: 0;
 }
 
+.social-links {
+    float: right;
+    margin-top: -37px;
+}
+
 .choices-main-table {
     width: 100%;
     display: grid;

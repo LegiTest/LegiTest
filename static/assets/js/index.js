@@ -838,6 +838,17 @@ async function loadResults() {
 
     displayResults();
 
+    /* fill twitter intent URL */
+    /* okay, that line is not well written, please improve */
+    let results_intent = `Mes résultats au test QuelParti.fr
+Meilleure correspondance (député) : {PL_DEP} 
+Meilleure correspondance (groupe politique) : {PL_GP} ({PL_GP_PCT} d'affinité)\n`
+        .replace("{PL_DEP}", get("match-depute-name").innerHTML)
+        .replace("{PL_GP}", get("match-organe-name").innerHTML)
+        .replace("{PL_GP_PCT}", get("match-view-content").children[0].children[2].innerHTML.replace("&nbsp;", ""));
+    
+    get("tw-intent").href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(results_intent)}&hashtags=QuelParti&url=https%3A%2F%2Fquelparti.fr&via=QuelParti`;
+
     await sleep(200);
     fadeIn(null, get("match-groupe"), "fade-in-right", null);
     await sleep(600);
@@ -847,7 +858,7 @@ async function loadResults() {
 
     /* get and display the (holy?) graph */
     await sleep(600);
-    
+
     /* do not show global results if we couldn't get them */
     if (Object.keys(results).length != 0) {
         fadeIn(null, get("results-graph"), "fade-in-right", null);
@@ -860,7 +871,7 @@ async function loadResults() {
         enableDataTooltip();
         await sleep(50);
     }
-    
+
     /* add scroll arrow and condition to make it disappear */
     fadeIn(null, get("results-scroll-arrow"), "fade-in-right", null);
     get("test-results").addEventListener("scroll", function e_checkScroll(e) {
