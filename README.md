@@ -8,7 +8,7 @@ Choisissez votre coalition.
 
 Consultez la [méthodologie](METHODOLOGY.md).
 
-*Les procédures d'installation et de configuration sont en cours d'amélioration, voir le ticket #1. Pour le moment, référez-vous au code et n'hésitez pas à documenter derrière vous.*
+*Les procédures d'installation et de configuration sont en cours d'amélioration, voir le [ticket #1](/../../issues/1). Pour le moment, référez-vous au code et n'hésitez pas à documenter derrière vous.*
 
 ### Installation
 
