@@ -537,7 +537,7 @@ a.why-back {
 
 .table-desc > span, .table-desc > span > u {
     background-color: var(--opaque-element-bg-darkest);
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .scrutins-table {
