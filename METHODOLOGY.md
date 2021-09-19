@@ -8,7 +8,7 @@
 
 QuelParti.fr est une plateforme web dont le but est d'accompagner des personnes qui découvrent la politique vers la construction d'un positionnement politique, à travers une série de question qui permettent d'associer leurs opinions politiques à celles de groupes existants.  
 Cette plateforme permet également à des personnes déjà sensibilisées aux enjeux politiques d'apporter un nouveau regard – et peut-être un peu de recul – sur leur orientation politique.  
-Inspirée des sites de tests politiques tels que PolitiScales ou 8values, QuelParti.fr se différencie néanmoins sur le principe : les questions posées sont basées sur des faits réels (des votes et des débats qui ont déjà pris place) plutôt que sur des idées, et le résultat correspond à un groupe et des personnalités plutôt que des idéologies.
+Inspirée des sites de tests politiques tels que [PolitiScales](https://politiscales.fr/) ou [8values](https://8values.github.io/), QuelParti.fr se différencie néanmoins sur le principe : les questions posées sont basées sur des faits réels (des votes et des débats qui ont déjà pris place) plutôt que sur des idées, et le résultat correspond à un groupe et des personnalités plutôt que des idéologies.
 
 ### Idée générale
 
