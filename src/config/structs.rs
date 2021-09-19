@@ -15,7 +15,8 @@ pub struct ConfigFile {
     pub hide_errors: bool,
     pub hours_update_results: u16,
     pub abuseipdb_api_key: String,
-    pub twitter_api_key: String,
+    pub twitter_api_client_id: String,
+    pub twitter_api_client_secret: String,
 }
 
 #[derive(Debug, Deserialize)]
