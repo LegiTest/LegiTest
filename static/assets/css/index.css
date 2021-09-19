@@ -474,6 +474,16 @@ a.why-back {
     padding: 0 1rem;
 }
 
+/* preselected answers */
+
+.button.preselect {
+    opacity: 0.5;
+}
+
+.button.preselect:hover {
+    opacity: 1;
+}
+
 /* with social network icons */
 
 .net-box img {
@@ -1035,6 +1045,7 @@ input.faq:checked ~ .tab-content {
 .soc > label {
     display: none;
 }
+
 
 /*animated scroll arrow animation*/
 @keyframes fade_move_down {

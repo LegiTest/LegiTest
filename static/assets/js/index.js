@@ -120,6 +120,7 @@ window.onload = async function() {
     fadeOut(get("test-back"), get("question-box"), "fade-out-right", function() {
         let menuType = askQuestion(--question_count);
         fadeIn(null, get(menuType), "fade-in-left", null);
+        preselectAnswer();
     });
     
     /* back button on results screen */
@@ -136,6 +137,7 @@ window.onload = async function() {
         get("test-back-results").classList.add("disabled");
         get("test-reset").classList.add("disabled");
         get("test-view-details").classList.add("disabled");
+        preselectAnswer();
     });
 
     /* send results button, with a ninja Thanks on click */
@@ -171,12 +173,41 @@ window.onload = async function() {
     });
 }
 
+/* after userVote, go to the next question or panel */
 function nextQuestion() {
     let menuType = askQuestion(++question_count);
     fadeIn(null, get(menuType), "fade-in-right", null);
     get("question-box").scrollTo(0,0);
     get("question-content").scrollTo(0,0);
     if (menuType == "test-results") loadResults();
+    else if (menuType == "question-box") preselectAnswer();
+}
+
+/* if the user has already done the test, highlight their
+ * previous responses */
+function preselectAnswer() {
+    let scrutin_id = scrutins_list[question_count].question_id;
+
+    let user_index = user_opinion.findIndex(u => u.question_id == scrutin_id);
+    if (user_index == -1) {
+        get("test-vote-against").classList.remove("preselect");
+        get("test-vote-not").classList.remove("preselect");
+        get("test-vote-for").classList.remove("preselect");
+        return;
+    }
+
+    get("test-vote-against").classList.add("preselect");
+    get("test-vote-not").classList.add("preselect");
+    get("test-vote-for").classList.add("preselect");
+
+    if (user_opinion[user_index].vote == "pour") {
+        get("test-vote-for").classList.remove("preselect");
+    } else if (user_opinion[user_index].vote == "contre") {
+        get("test-vote-against").classList.remove("preselect");
+    } else {
+        get("test-vote-not").classList.remove("preselect");
+    }
+
 }
 
 function viewDetails() {
@@ -937,7 +968,7 @@ function displayResults() {
     for (let i = 0; i < results.groupes.length; i++) {
         let display = acteurs_list.organes[acteurs_list.organes.findIndex(o => o.id == results.groupes[i].id)].display;
         if (display) {
-            results.groupes[i]["value_median"] = results.groupes[i]["value_median"].toFixed(1);
+            results.groupes[i]["value_median"] = Number(results.groupes[i]["value_median"]).toFixed(1);
             results_tpl += displayResults_tpl(results.groupes[i], "value_median");
         }
     }
@@ -981,6 +1012,7 @@ function displayResults_tpl(groupe, field_name) {
 }
 
 // escapes HTML and inserts non-breaking spaces
+// can be improved
 function fmt(unsafe) {
     // HTML escape
     if (unsafe != null) {
