@@ -14,7 +14,7 @@
 
 ### Page des résultats
 
-- Les portraits des députés sur la page des résultats appartiennent à l'Assemblée Nationale.
+- Les portraits des députés sur la page des résultats appartiennent à l'Assemblée nationale.
 - Les vignettes représentant les logos des groupes politiques sont la propriété des groupes politiques respectifs.
 
 ### Bannière
