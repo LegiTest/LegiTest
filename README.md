@@ -6,6 +6,8 @@ Choisissez votre coalition.
 
 [Faites le test.](https://quelparti.fr)
 
+**[Site web](https://quelparti.fr)** – [Mastodon](https://botsin.space/@QuelParti) – [Twitter](https://twitter.com/QuelParti) – [Liberapay](https://liberapay.com/QuelParti) – [Buymeacoffee](https://www.buymeacoffee.com/quelparti)
+
 Consultez la [méthodologie](METHODOLOGY.md).
 
 *Les procédures d'installation et de configuration sont en cours d'amélioration, voir le [ticket #1](/../../issues/1). Pour le moment, référez-vous au code et n'hésitez pas à documenter derrière vous.*
