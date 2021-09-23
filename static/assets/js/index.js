@@ -144,11 +144,14 @@ window.onload = async function() {
     get("results-send").addEventListener('click', function () {
         get("results-send").innerHTML = "Merci !";
     });
-    fadeOut(get("results-send"), get("results-submit-div"), "fade-out-left", function() {
-        fetchSubmit();
+    fadeOut(get("results-send"), get("results-submit-div"), "fade-out-left", async function() {
+        let results_success = await fetchSubmit();
         
-        has_sent_results = true;
-        localStorage.setItem("has_sent_results", has_sent_results.toString());
+        console.log(results_success);
+        if (results_success !== 1) {
+            has_sent_results = true;
+            localStorage.setItem("has_sent_results", has_sent_results.toString());
+        }
     });
 
     /* details button on results screen */
@@ -277,8 +280,9 @@ async function fetchResults() {
     console.log("Got results from API.");
 }
 
+// returns 1 if something bad happened
 async function fetchSubmit() {
-    let csrf = 
+    let submit = 
     fetch("/api/submit", {
         method: "POST",
         body: JSON.stringify({
@@ -295,11 +299,13 @@ async function fetchSubmit() {
             if (text != "OK")
             {
                 alert(text);
+                return 1;
             }
         })
     .catch(function (err) {
         console.log(err);
     });
+    return 0;
 }
 
 async function refreshSidebar() {
