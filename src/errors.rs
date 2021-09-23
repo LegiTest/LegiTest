@@ -104,6 +104,7 @@ impl ErrorKind {
                 | ErrorKind::WarnNoDurationCookie
                 | ErrorKind::SevereDurationOverflow
                 | ErrorKind::WarnSubmitNoPlatform
+                | ErrorKind::WarnResultsNoPlatform
                 | ErrorKind::WarnCsrfTokenInvalid
                 | ErrorKind::WarnInvalidAnswer
         )
