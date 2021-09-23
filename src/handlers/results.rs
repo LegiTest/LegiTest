@@ -2,6 +2,8 @@ use actix_web::http::StatusCode;
 use actix_web::{get, web, HttpRequest, HttpResponse, Result};
 use chrono::Utc;
 
+use crate::DbConn;
+
 use crate::config::structs::InstanceInfo;
 use crate::database::structs::{Results, ResultsGroupes, Submissions};
 use crate::database::views::{
@@ -19,28 +21,35 @@ pub async fn results(
     let conn = dbpool
         .get()
         .map_err(|e| throw(ErrorKind::CritResultsPool, e.to_string()))?;
+
     let g_instance = InstanceInfo::global();
 
+    let results_public = fetch_results(&g_instance, req.connection_info().host(), &conn)?;
+
+    Ok(HttpResponse::build(StatusCode::OK).json(results_public))
+}
+
+pub fn fetch_results(g_instance: &InstanceInfo, hostname: &str, conn: &DbConn) -> Result<ResultsPublic, InstanceError> {
     let platform = g_instance
         .platforms_list
         .iter()
-        .find(|p| p.host == req.connection_info().host());
+        .find(|p| p.host == hostname);
 
     let platform = match platform {
         Some(v) => v,
         None => {
             return Err(throw(
                 ErrorKind::WarnResultsNoPlatform,
-                req.connection_info().host().into(),
+                hostname.into(),
             ));
         }
     };
 
     // get latest result from db
-    let results = Results::get_latest(platform.id, &conn)
+    let db_results = Results::get_latest(platform.id, &conn)
         .map_err(|e| throw(ErrorKind::CritResultsGetLatest, e.to_string()))?;
 
-    let results_public = if let Some(res) = results {
+    let results_public = if let Some(res) = db_results {
         // gather results directly from the above query
         let resultsgroupes = ResultsGroupes::get_from(res.id, &conn)
             .map_err(|e| throw(ErrorKind::CritResultsGetGroups, e.to_string()))?;
@@ -92,5 +101,5 @@ pub async fn results(
         }
     };
 
-    Ok(HttpResponse::build(StatusCode::OK).json(results_public))
+    Ok(results_public)
 }

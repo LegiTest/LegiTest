@@ -116,9 +116,12 @@ fn translate_ip(req: &HttpRequest) -> Result<(Ipv4Addr, IpNetwork), InstanceErro
     };
 
     // 5.b convert client IP to IpAddr
-    let client_inet: Ipv4Addr = client_inet
-        .parse()
-        .map_err(|e: AddrParseError| throw(ErrorKind::CritIpv4AddrConvert, e.to_string()))?;
+    let client_inet: Ipv4Addr = client_inet.parse().map_err(|e: AddrParseError| {
+        throw(
+            ErrorKind::CritIpv4AddrConvert,
+            format!("{} - {}", e.to_string(), client_inet),
+        )
+    })?;
 
     // 5.c convert client IP to IpNetwork
     let client_ipnetwork = IpNetwork::new(std::net::IpAddr::V4(client_inet), 32)

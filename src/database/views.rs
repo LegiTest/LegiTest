@@ -8,7 +8,7 @@ pub struct ResultsPublic {
     pub groupes: Vec<ResultsPublicGroupes>,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Clone)]
 pub struct ResultsPublicGroupes {
     pub id: i16,
     pub value_median: f32,

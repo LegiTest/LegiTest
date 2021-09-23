@@ -30,7 +30,7 @@ use crate::config::global::INSTANCE;
 use crate::config::structs::{ASNBLEntry, IPV4BLEntry, IPV4WLEntry, InstanceInfo};
 use crate::errors::invalid_form;
 use crate::handlers::csrftoken::csrftoken;
-use crate::handlers::reports::int_genreport;
+use crate::handlers::reports::{int_genreport, int_pubreport};
 use crate::handlers::results::results;
 use crate::handlers::submit::submit;
 
@@ -106,6 +106,7 @@ async fn main() -> std::io::Result<()> {
             )
             .service(submit)
             .service(int_genreport)
+            .service(int_pubreport)
             .service(results)
             .service(csrftoken)
             .service(Files::new("/data/", "./data/"))
