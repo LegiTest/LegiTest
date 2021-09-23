@@ -6,6 +6,7 @@ pub static INSTANCE: OnceCell<InstanceInfo> = OnceCell::new();
 pub const CONFIG_FILE: &str = "./config/server/config.toml";
 pub const PLATFORMS_FILE: &str = "./config/server/platforms.json";
 pub const SCRUTINS_FILE: &str = "./data/scrutins.json";
+pub const ACTEURS_FILE: &str = "./data/acteurs.json";
 
 pub const IPV4_WHITELIST_FILE: &str = "./config/filters/generated/ip-whitelist.csv";
 pub const IPV4_BLACKLIST_FILE: &str = "./config/filters/generated/ip-blacklist.csv";

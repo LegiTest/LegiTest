@@ -30,10 +30,36 @@ pub struct Platform {
     pub groups: Vec<i16>,
 }
 
+#[derive(Deserialize, Debug)]
+pub struct Acteurs {
+    pub organes: Vec<Organes>,
+    pub deputes: Vec<Deputes>,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Deputes {
+    pub id: String,
+    pub name: String,
+    pub is_president: bool,
+    pub is_active: bool,
+    pub organe: i16,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct Organes {
+    pub id: i16,
+    pub name: String,
+    pub abrev: String,
+    pub display: bool,
+    pub color: String,
+    pub aliases: Vec<String>,
+}
+
 #[derive(Debug)]
 pub struct InstanceInfo {
     pub config: ConfigFile,
     pub platforms_list: Vec<Platform>,
+    pub acteurs_list: Acteurs,
     pub scrutins_list: Vec<Scrutin>,
     pub ipv4_whitelist: Vec<IPV4WLEntry>,
     pub ipv4_blacklist: Vec<IPV4BLEntry>,

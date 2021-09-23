@@ -1,9 +1,9 @@
 use crate::config::global::{
     ASN_BLACKLIST_FILE, ASN_LIST_FILE, CONFIG_FILE, INSTANCE, IPV4_BLACKLIST_FILE,
-    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE,
+    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE, ACTEURS_FILE,
 };
 use crate::config::structs::{
-    ASNBLEntry, ASNLEntry, ConfigFile, IPV4BLEntry, IPV4WLEntry, InstanceInfo, Platform, Scrutin,
+    ASNBLEntry, ASNLEntry, ConfigFile, IPV4BLEntry, IPV4WLEntry, InstanceInfo, Platform, Scrutin, Acteurs,
 };
 use chrono::offset::Utc;
 use std::fs::File;
@@ -219,10 +219,22 @@ impl InstanceInfo {
         serde_json::from_str(&scrutin_str).expect("Error: Couldn't parse scrutins file's JSON")
     }
 
+    fn read_acteurs(filename: &str) -> Acteurs {
+        let mut acteurs_file = File::open(filename).expect("Error: Couldn't open acteurs file");
+
+        let mut acteurs_str = String::new();
+        acteurs_file
+            .read_to_string(&mut acteurs_str)
+            .expect("Error: couldn't read scrutins file");
+
+        serde_json::from_str(&acteurs_str).expect("Error: Couldn't parse scrutins file's JSON")
+    }
+
     pub fn init() -> InstanceInfo {
         InstanceInfo {
             config: InstanceInfo::read_config(CONFIG_FILE),
             platforms_list: InstanceInfo::read_platforms(PLATFORMS_FILE),
+            acteurs_list: InstanceInfo::read_acteurs(ACTEURS_FILE),
             scrutins_list: InstanceInfo::read_scrutins(SCRUTINS_FILE),
             ipv4_whitelist: IPV4WLEntry::parse(IPV4_WHITELIST_FILE),
             ipv4_blacklist: IPV4BLEntry::parse(IPV4_BLACKLIST_FILE),
