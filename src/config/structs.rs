@@ -17,6 +17,8 @@ pub struct ConfigFile {
     pub abuseipdb_api_key: String,
     pub twitter_api_client_id: String,
     pub twitter_api_client_secret: String,
+    pub twitter_api_oauth_token: String,
+    pub twitter_api_oauth_secret: String,
 }
 
 #[derive(Debug, Deserialize)]

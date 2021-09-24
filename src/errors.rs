@@ -74,6 +74,10 @@ pub enum ErrorKind {
     CritReportPool,         // failed to get the pool in internal report route
     CritReportInsert,       // failed to insert the report in DB
     CritReportInsertGroups, // failed to insert the resultsgroups in DB
+    CritNoLeadingGroup,     // failed to get the leading group stat in pubreport
+    CritNoLeadingGroupName, // failed to get the leading group name in pubreport
+    CritTwitterReqFail,     // failed to send the API request to Twitter
+    CritTwitterRespFail,    // failed to parse the API response from Twitter
 }
 
 impl ErrorKind {

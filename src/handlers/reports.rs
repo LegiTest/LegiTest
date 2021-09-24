@@ -1,13 +1,14 @@
 use actix_web::http::StatusCode;
 use actix_web::{get, web, HttpResponse, Result};
 use chrono::Utc;
+use twapi_reqwest::v1;
 
 use crate::config::structs::InstanceInfo;
 use crate::database::models::InsertableResult;
 use crate::database::structs::{Results, ResultsGroupes};
 use crate::errors::{throw, ErrorKind, InstanceError};
-use crate::reports::generate_report;
 use crate::handlers::results::fetch_results;
+use crate::reports::generate_report;
 use crate::DbPool;
 
 #[get("/internal/generate_report")]
@@ -61,7 +62,7 @@ pub struct PublishReportData {
 pub async fn int_pubreport(
     dbpool: web::Data<DbPool>,
     params: web::Path<PublishReportData>,
-    ) -> Result<HttpResponse, InstanceError> {
+) -> Result<HttpResponse, InstanceError> {
     let conn = dbpool
         .get()
         .map_err(|e| throw(ErrorKind::CritReportPool, e.to_string()))?;
@@ -86,7 +87,7 @@ pub async fn int_pubreport(
     };
 
     // If the results aren't available yet, display a different message
-    
+
     let results_msg = if results_public.global.participations.total == 0 {
         format!(
             "Participations restantes avant la publication des résultats : {} / {}.\n#QuelParti / https://quelparti.fr",
@@ -95,12 +96,30 @@ pub async fn int_pubreport(
         )
     } else {
         let mut leading_group_stat = results_public.groupes.clone();
-        leading_group_stat.sort_by(|a, b| a.value_median.partial_cmp(&b.value_median).unwrap());
+        leading_group_stat.sort_by(|a, b| {
+            a.value_median
+                .partial_cmp(&b.value_median)
+                .expect("pubreport: There's no NaN in this set. Shouldnt' happen.")
+        });
 
-        let leading_group_stat = leading_group_stat.first().unwrap();
+        let leading_group_stat = if let Some(v) = leading_group_stat.first() {
+            v
+        } else {
+            return Err(throw(ErrorKind::CritNoLeadingGroup, format!("{:?}", leading_group_stat)));
+        };
 
         // get group name
-        let leading_group_info = g_instance.acteurs_list.organes.iter().find(|x| x.id == leading_group_stat.id).unwrap();
+        let leading_group_info = g_instance
+            .acteurs_list
+            .organes
+            .iter()
+            .find(|x| x.id == leading_group_stat.id);
+
+        let leading_group_info = if let Some(v) = leading_group_info {
+            v
+        } else {
+            return Err(throw(ErrorKind::CritNoLeadingGroupName, format!("{:?}", leading_group_info)));
+        };
 
         format!(
             "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({} %)\n#QuelParti / https://quelparti.fr",
@@ -110,11 +129,32 @@ pub async fn int_pubreport(
             leading_group_info.name,
             leading_group_info.abrev,
             leading_group_stat.value_median,
-            )
+        )
     };
+
+    // now connects to the Twitter API
+    // statuses/update
+    let url = "https://api.twitter.com/1.1/statuses/update.json";
+    let form_options = vec![("status", results_msg.as_str())];
+
+    let _: serde_json::Value = v1::post(
+        url,
+        &vec![],
+        &form_options,
+        &g_instance.config.twitter_api_client_id,
+        &g_instance.config.twitter_api_client_secret,
+        &g_instance.config.twitter_api_oauth_token,
+        &g_instance.config.twitter_api_oauth_secret,
+    )
+    .await
+    .map_err(|e| { throw(ErrorKind::CritTwitterReqFail, e.to_string()) })?
+    .json()
+    .await
+    .map_err(|e| { throw(ErrorKind::CritTwitterRespFail, e.to_string()) })?;
+
+    println!("Published: {:?}", results_msg);
 
     Ok(HttpResponse::build(StatusCode::OK)
         .content_type("text/plain; charset=utf-8")
         .body(results_msg))
-
 }
