@@ -74,7 +74,7 @@ pub async fn int_pubreport(
     let platform = g_instance
         .platforms_list
         .iter()
-        .find(|p| &p.host == &params.hostname);
+        .find(|p| p.host == params.hostname);
 
     let platform = match platform {
         Some(v) => v,

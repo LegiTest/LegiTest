@@ -24,7 +24,7 @@ pub async fn results(
 
     let g_instance = InstanceInfo::global();
 
-    let results_public = fetch_results(&g_instance, req.connection_info().host(), &conn)?;
+    let results_public = fetch_results(g_instance, req.connection_info().host(), &conn)?;
 
     Ok(HttpResponse::build(StatusCode::OK).json(results_public))
 }
@@ -47,12 +47,12 @@ pub fn fetch_results(
     };
 
     // get latest result from db
-    let db_results = Results::get_latest(platform.id, &conn)
+    let db_results = Results::get_latest(platform.id, conn)
         .map_err(|e| throw(ErrorKind::CritResultsGetLatest, e.to_string()))?;
 
     let results_public = if let Some(res) = db_results {
         // gather results directly from the above query
-        let resultsgroupes = ResultsGroupes::get_from(res.id, &conn)
+        let resultsgroupes = ResultsGroupes::get_from(res.id, conn)
             .map_err(|e| throw(ErrorKind::CritResultsGetGroups, e.to_string()))?;
 
         ResultsPublic {
@@ -71,7 +71,7 @@ pub fn fetch_results(
         // display count of missing results before announcement
         let vsub_count = Submissions::count_valid(
             platform.id,
-            &conn,
+            conn,
             platform.begin_at,
             Utc::now().naive_utc().date(),
         )
