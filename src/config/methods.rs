@@ -1,9 +1,10 @@
 use crate::config::global::{
-    ASN_BLACKLIST_FILE, ASN_LIST_FILE, CONFIG_FILE, INSTANCE, IPV4_BLACKLIST_FILE,
-    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE, ACTEURS_FILE,
+    ACTEURS_FILE, ASN_BLACKLIST_FILE, ASN_LIST_FILE, CONFIG_FILE, INSTANCE, IPV4_BLACKLIST_FILE,
+    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE,
 };
 use crate::config::structs::{
-    ASNBLEntry, ASNLEntry, ConfigFile, IPV4BLEntry, IPV4WLEntry, InstanceInfo, Platform, Scrutin, Acteurs,
+    ASNBLEntry, ASNLEntry, Acteurs, ConfigFile, IPV4BLEntry, IPV4WLEntry, InstanceInfo, Platform,
+    Scrutin,
 };
 use chrono::offset::Utc;
 use std::fs::File;

@@ -105,7 +105,10 @@ pub async fn int_pubreport(
         let leading_group_stat = if let Some(v) = leading_group_stat.first() {
             v
         } else {
-            return Err(throw(ErrorKind::CritNoLeadingGroup, format!("{:?}", leading_group_stat)));
+            return Err(throw(
+                ErrorKind::CritNoLeadingGroup,
+                format!("{:?}", leading_group_stat),
+            ));
         };
 
         // get group name
@@ -118,7 +121,10 @@ pub async fn int_pubreport(
         let leading_group_info = if let Some(v) = leading_group_info {
             v
         } else {
-            return Err(throw(ErrorKind::CritNoLeadingGroupName, format!("{:?}", leading_group_info)));
+            return Err(throw(
+                ErrorKind::CritNoLeadingGroupName,
+                format!("{:?}", leading_group_info),
+            ));
         };
 
         format!(
@@ -147,10 +153,10 @@ pub async fn int_pubreport(
         &g_instance.config.twitter_api_oauth_secret,
     )
     .await
-    .map_err(|e| { throw(ErrorKind::CritTwitterReqFail, e.to_string()) })?
+    .map_err(|e| throw(ErrorKind::CritTwitterReqFail, e.to_string()))?
     .json()
     .await
-    .map_err(|e| { throw(ErrorKind::CritTwitterRespFail, e.to_string()) })?;
+    .map_err(|e| throw(ErrorKind::CritTwitterRespFail, e.to_string()))?;
 
     println!("Published: {:?}", results_msg);
 

@@ -29,7 +29,11 @@ pub async fn results(
     Ok(HttpResponse::build(StatusCode::OK).json(results_public))
 }
 
-pub fn fetch_results(g_instance: &InstanceInfo, hostname: &str, conn: &DbConn) -> Result<ResultsPublic, InstanceError> {
+pub fn fetch_results(
+    g_instance: &InstanceInfo,
+    hostname: &str,
+    conn: &DbConn,
+) -> Result<ResultsPublic, InstanceError> {
     let platform = g_instance
         .platforms_list
         .iter()
@@ -38,10 +42,7 @@ pub fn fetch_results(g_instance: &InstanceInfo, hostname: &str, conn: &DbConn) -
     let platform = match platform {
         Some(v) => v,
         None => {
-            return Err(throw(
-                ErrorKind::WarnResultsNoPlatform,
-                hostname.into(),
-            ));
+            return Err(throw(ErrorKind::WarnResultsNoPlatform, hostname.into()));
         }
     };
 
