@@ -90,7 +90,7 @@ pub async fn int_pubreport(
 
     let results_msg = if results_public.global.participations.total == 0 {
         format!(
-            "Participations restantes avant la publication des résultats : {} / {}.\n#QuelParti / https://quelparti.fr",
+            "Participations restantes avant la publication des résultats : {} / {}.\n#QuelParti / https://quelparti.fr\n",
             platform.minimum_participations - results_public.global.participations.valid as u32,
             platform.minimum_participations,
         )
@@ -128,7 +128,7 @@ pub async fn int_pubreport(
         };
 
         format!(
-            "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({} %)\n#QuelParti / https://quelparti.fr",
+            "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({} %)\n#QuelParti / https://quelparti.fr\n",
             results_public.global.generated_at.format("%d/%M/%Y"),
             results_public.global.participations.valid,
             results_public.global.participations.total,
