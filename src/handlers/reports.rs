@@ -137,28 +137,32 @@ pub async fn int_pubreport(
             leading_group_stat.value_median,
         )
     };
+    
+    if g_instance.config.do_not_publish {
+        println!("Not publishing because do_not_publish is true: {:?}", results_msg);
+    } else {
+        // publish tweet
+        println!("Publishing: {:?}", results_msg);
+        // now connects to the Twitter API
+        // statuses/update
+        let url = "https://api.twitter.com/1.1/statuses/update.json";
+        let form_options = vec![("status", results_msg.as_str())];
 
-    // now connects to the Twitter API
-    // statuses/update
-    let url = "https://api.twitter.com/1.1/statuses/update.json";
-    let form_options = vec![("status", results_msg.as_str())];
-
-    let _: serde_json::Value = v1::post(
-        url,
-        &vec![],
-        &form_options,
-        &g_instance.config.twitter_api_client_id,
-        &g_instance.config.twitter_api_client_secret,
-        &g_instance.config.twitter_api_oauth_token,
-        &g_instance.config.twitter_api_oauth_secret,
-    )
-    .await
-    .map_err(|e| throw(ErrorKind::CritTwitterReqFail, e.to_string()))?
-    .json()
-    .await
-    .map_err(|e| throw(ErrorKind::CritTwitterRespFail, e.to_string()))?;
-
-    println!("Published: {:?}", results_msg);
+        let _: serde_json::Value = v1::post(
+            url,
+            &vec![],
+            &form_options,
+            &g_instance.config.twitter_api_client_id,
+            &g_instance.config.twitter_api_client_secret,
+            &g_instance.config.twitter_api_oauth_token,
+            &g_instance.config.twitter_api_oauth_secret,
+        )
+            .await
+            .map_err(|e| throw(ErrorKind::CritTwitterReqFail, e.to_string()))?
+            .json()
+            .await
+            .map_err(|e| throw(ErrorKind::CritTwitterRespFail, e.to_string()))?;
+    }
 
     Ok(HttpResponse::build(StatusCode::OK)
         .content_type("text/plain; charset=utf-8")

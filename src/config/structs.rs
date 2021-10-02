@@ -13,6 +13,7 @@ pub struct ConfigFile {
     pub database_path: String,
     pub csrf_key: String,
     pub hide_errors: bool,
+    pub do_not_publish: bool,
     pub hours_update_results: u16,
     pub abuseipdb_api_key: String,
     pub twitter_api_client_id: String,
