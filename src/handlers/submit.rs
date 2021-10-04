@@ -254,7 +254,7 @@ pub async fn submit(
 
     // 7. check if AS is in the blocklist (doesn't apply to AS=0)
     if client_asn != 0 {
-        let test_asnbl = g_instance.check_asn_blacklist(client_u32);
+        let test_asnbl = g_instance.check_asn_blacklist(client_asn);
         if test_asnbl > 0 {
             save_to_db(
                 &conn,

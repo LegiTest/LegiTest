@@ -301,9 +301,9 @@ impl InstanceInfo {
     }
 
     // returns abuse code
-    pub fn check_asn_blacklist(&self, client: u32) -> u16 {
+    pub fn check_asn_blacklist(&self, client_asn: u32) -> u16 {
         for asn in &self.asn_blacklist {
-            if asn.asn == client {
+            if asn.asn == client_asn {
                 return asn.abuse_code;
             }
         }
