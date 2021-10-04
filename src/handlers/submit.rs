@@ -324,7 +324,7 @@ pub async fn submit(
                 duration,
                 client_ipnetwork,
             )?;
-            return Err(throw(ErrorKind::CritAbuseIpDbApiFail, e));
+            return Err(throw(ErrorKind::CritAbuseIpDbApiFail, format!("{} - {}", e, client_inet)));
         }
     };
 
