@@ -1,5 +1,5 @@
 //use crate::database::schema::{addresses, submissions};
-use crate::config::global::{AC_HIGHEST, AC_LOWEST, MAX_SUB_DURATION};
+use crate::config::global::{AC_HIGHEST, AC_LOWEST, MIN_SUB_DURATION, MAX_SUB_DURATION};
 use crate::database::models::{InsertableResult, InsertableSubmissions};
 use crate::database::structs::{
     Addresses, Results, ResultsGroupes, Submissions, SubmissionsChoices,
@@ -71,7 +71,7 @@ impl Submissions {
             .filter(platform_id.eq(i_platform_id))
             .filter(abuse_code.between(AC_LOWEST, AC_HIGHEST))
             .filter(sent_timestamp.between(begin_at, end_at))
-            .filter(duration.le(MAX_SUB_DURATION))
+            .filter(duration.between(MIN_SUB_DURATION, MAX_SUB_DURATION))
             .count()
             .get_result(conn)
     }
@@ -94,7 +94,7 @@ impl Submissions {
             .filter(platform_id.eq(i_platform_id))
             .filter(abuse_code.between(AC_LOWEST, AC_HIGHEST))
             .filter(sent_timestamp.between(begin_at, end_at))
-            .filter(duration.le(MAX_SUB_DURATION))
+            .filter(duration.between(MIN_SUB_DURATION, MAX_SUB_DURATION))
             .order(submission_id)
             .select((submission_id, question_id, userchoice))
             .load(conn)
