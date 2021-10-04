@@ -10,6 +10,10 @@ J'espère que QuelParti pourra devenir un outil d'émancipation qui permettra à
 
 Si vous souhaitez participer à cette initiative, plusieurs moyens s'offrent à vous.
 
+### Rejoindre la communauté
+
+Une communauté a été créée pour QuelParti sur [Discord](https://discord.quelparti.fr). Vous pouvez la rejoindre pour contribuer à l'amélioration et à la diffusion du projet.
+
 ### Partager QuelParti
 
 Le moyen le plus simple et le plus efficace de contribuer est de diffuser QuelParti : qu'il s'agisse de partager vos résultats sur les réseaux sociaux ou de parler de cette initiative avec vos proches ou votre famille, cela permettra à d'autres personnes de découvrir QuelParti et de participer à leur tour.
