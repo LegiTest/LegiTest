@@ -486,7 +486,14 @@ a.why-back {
 
 /* with social network icons */
 
-.net-box img {
+#disc-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.net-box img, #disc-button img {
     height: 25px;
     min-width: 25px;
     margin: 5px;
