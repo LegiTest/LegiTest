@@ -1204,3 +1204,13 @@ input.faq:checked ~ .tab-content {
         height: 100vh !important;
     }
 }
+
+@supports(font:-apple-system-body) {
+    #choices-main-table {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
