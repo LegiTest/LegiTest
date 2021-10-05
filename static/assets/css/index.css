@@ -106,10 +106,12 @@ h1 {
 
 .overflow-y {
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .overflow-x {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* animation properties */
@@ -1195,3 +1197,10 @@ input.faq:checked ~ .tab-content {
     }
 }
 
+/* dirty fixes scrolling for safari iOS */
+@supports (-webkit-touch-callout: none) {
+    .contents {
+        margin-top: 200px !important;
+        height: 100vh !important;
+    }
+}
