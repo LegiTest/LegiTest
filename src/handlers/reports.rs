@@ -129,7 +129,7 @@ pub async fn int_pubreport(
 
         format!(
             "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({} %)\n#QuelParti https://quelparti.fr\n",
-            results_public.global.generated_at.format("%d/%M/%Y"),
+            results_public.global.generated_at.format("%d/%m/%Y"),
             results_public.global.participations.valid,
             results_public.global.participations.total,
             leading_group_info.name,
