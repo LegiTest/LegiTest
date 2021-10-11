@@ -14,10 +14,10 @@ let needsTableRefresh = 1;
 window.onload = async function() {
 
     /* load user opinion and participation state from local storage */
-    if (localStorage.getItem("has_sent_results")) {
+    if (localStorage && localStorage.getItem("has_sent_results")) {
         has_sent_results = (await localStorage.getItem("has_sent_results") == "true");
     }
-    if (localStorage.getItem("user_opinion")) {
+    if (localStorage && localStorage.getItem("user_opinion")) {
         user_opinion = await JSON.parse(localStorage.getItem("user_opinion"));
 
         /* hide begin test button, display show results button instead */
@@ -255,7 +255,9 @@ async function fetchCsrfToken() {
         return response.json();
     })
     .then(function(data) {
-        localStorage.setItem("csrf_token", data.csrf_token);
+        if (localStorage) {
+            localStorage.setItem("csrf_token", data.csrf_token);
+        }
     })
     .catch(function (err) {
         console.log(err);
@@ -282,6 +284,10 @@ async function fetchResults() {
 
 // returns 1 if something bad happened
 async function fetchSubmit() {
+    if(!window.localStorage || !window.sessionStorage) {
+        alert("Votre navigateur ne supporte pas le stockage local (Safari en navigation privée ?). Si vous souhaitez envoyer vos résultats, assurez-vous que votre navigateur supporte cette fonctionnalité.");
+        return 1;
+    }
     let submit = 
     fetch("/api/submit", {
         method: "POST",
@@ -839,7 +845,9 @@ async function loadResults() {
     /* warning: can trigger a race condition with userVote here */
     await sleep(500);
 
-    localStorage.setItem("user_opinion", JSON.stringify(user_opinion));
+    if (localStorage) {
+        localStorage.setItem("user_opinion", JSON.stringify(user_opinion));
+    }
 
     /* get info about matching group */
     let match_groupe;
