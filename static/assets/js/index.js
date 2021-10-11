@@ -638,21 +638,21 @@ function table_mouseover(cell_parent_data, cell_data, vote) {
 
     if (vote == "abst.") {
         if (cell_parent_data.type == "user") {
-            desc_sentence += `avez <u>choisi de vous abstenir</u> sur `;
+            desc_sentence += `avez <b>choisi de vous abstenir</b> sur `;
         }
         else {
-            desc_sentence += `a <u>choisi de s'abstenir</u> sur `;
+            desc_sentence += `a <b>choisi de s'abstenir</b> sur `;
         }
     }
     else if (vote == "N/A") {
-        desc_sentence += `<u>n'était pas dans l'hémicycle</u> lors du vote sur `;
+        desc_sentence += `<b>n'était pas dans l'hémicycle</b> lors du vote sur `;
     }
     else {
         if (cell_parent_data.type == "user") {
-            desc_sentence += `avez <u>voté ${fmt(vote)}</u> `;
+            desc_sentence += `avez <b>voté ${fmt(vote)}</b> `;
         }
         else {
-            desc_sentence += `a <u>voté ${fmt(vote)}</u> `;
+            desc_sentence += `a <b>voté ${fmt(vote)}</b> `;
         }
     }
     desc_sentence += `${scrutins_list[cell_data.colid].abbr}`;
