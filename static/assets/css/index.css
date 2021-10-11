@@ -544,7 +544,7 @@ a.why-back {
     background-color: var(--opaque-element-bg-darkest);
 }
 
-.table-desc > span, .table-desc > span > u {
+.table-desc > span, .table-desc > span > b {
     background-color: var(--opaque-element-bg-darkest);
     font-size: 16px;
 }
@@ -1070,7 +1070,7 @@ input.faq:checked ~ .tab-content {
         width: 110px;
         font-size: 14px;
     }
-    .table-desc > span, .table-desc > span > u {
+    .table-desc > span, .table-desc > span > b {
         font-size: 11px;
     }
 
