@@ -1,6 +1,7 @@
 use chrono::naive::NaiveDate;
 use serde_derive::Deserialize;
 use std::collections::HashMap;
+use rusttype::Font;
 
 use crate::database::structs::Choice;
 
@@ -48,7 +49,7 @@ pub struct Deputes {
     pub organe: i16,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Deserialize, Debug, Clone)]
 pub struct Organes {
     pub id: i16,
     pub name: String,
@@ -68,6 +69,7 @@ pub struct InstanceInfo {
     pub ipv4_blacklist: Vec<IPV4BLEntry>,
     pub asn_list: Vec<ASNLEntry>,
     pub asn_blacklist: Vec<ASNBLEntry>,
+    pub results_font: Font<'static>,
 }
 
 // IPv4 whitelist entry

@@ -9,6 +9,8 @@ extern crate diesel;
 #[macro_use]
 extern crate diesel_migrations;
 
+extern crate image;
+
 mod abuseipdb;
 mod config;
 mod database;
@@ -16,6 +18,7 @@ mod errors;
 mod handlers;
 mod matching;
 mod reports;
+mod canvas;
 
 use actix_files::Files;
 use actix_session::CookieSession;
@@ -89,6 +92,7 @@ async fn main() -> std::io::Result<()> {
         "Running web server at {}:{}.",
         g_instance.config.bind_address, g_instance.config.bind_port
     );
+
     HttpServer::new(move || {
         App::new()
             .app_data(Data::new(pool.clone()))

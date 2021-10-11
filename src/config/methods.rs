@@ -1,11 +1,13 @@
 use crate::config::global::{
     ACTEURS_FILE, ASN_BLACKLIST_FILE, ASN_LIST_FILE, CONFIG_FILE, INSTANCE, IPV4_BLACKLIST_FILE,
-    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE,
+    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE, FONT_BYTES
 };
 use crate::config::structs::{
     ASNBLEntry, ASNLEntry, Acteurs, ConfigFile, IPV4BLEntry, IPV4WLEntry, InstanceInfo, Platform,
     Scrutin,
 };
+
+use rusttype::Font;
 use chrono::offset::Utc;
 use std::fs::File;
 use std::io::Read;
@@ -232,6 +234,8 @@ impl InstanceInfo {
     }
 
     pub fn init() -> InstanceInfo {
+        
+
         InstanceInfo {
             config: InstanceInfo::read_config(CONFIG_FILE),
             platforms_list: InstanceInfo::read_platforms(PLATFORMS_FILE),
@@ -241,6 +245,7 @@ impl InstanceInfo {
             ipv4_blacklist: IPV4BLEntry::parse(IPV4_BLACKLIST_FILE),
             asn_list: ASNLEntry::parse(ASN_LIST_FILE),
             asn_blacklist: ASNBLEntry::parse(ASN_BLACKLIST_FILE),
+            results_font: Font::try_from_bytes(FONT_BYTES).expect("Couldn't read the fonts file"),
         }
     }
 

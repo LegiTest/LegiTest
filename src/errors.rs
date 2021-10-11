@@ -74,10 +74,18 @@ pub enum ErrorKind {
     CritReportPool,         // failed to get the pool in internal report route
     CritReportInsert,       // failed to insert the report in DB
     CritReportInsertGroups, // failed to insert the resultsgroups in DB
-    CritNoLeadingGroup,     // failed to get the leading group stat in pubreport
-    CritNoLeadingGroupName, // failed to get the leading group name in pubreport
+    CritNoLeadingGroup,     // failed to get the leading group name in pubreport
     CritTwitterReqFail,     // failed to send the API request to Twitter
     CritTwitterRespFail,    // failed to parse the API response from Twitter
+    CritTwitterUpReqFail,   // failed to send the API request (upload)
+    CritTwitterUpRespFail,  // failed to parse the API response (upload)
+    CritTwitterUpMediaGet,  // failed to get the media_id value from API
+    CritTwitterUpMediaInt,  // failed to convert the media_id to u64
+    CritCanvasModelOpen,    // failed to open the canvas model
+    CritCanvasModelLoad,    // failed to load the canvas model
+    CritCanvasGroupColor,   // failed to parse the group color (canvas gen)
+    CritCanvasGroupInfo,    // failed to get the first group information
+    CritCanvasWriteBytes,   // failed to convert the image to a bytes array
 }
 
 impl ErrorKind {
