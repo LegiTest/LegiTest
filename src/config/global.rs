@@ -26,7 +26,7 @@ pub const CSRF_TTL: i64 = 172_800;
 pub const AC_LOWEST: i16 = 0;
 pub const AC_HIGHEST: i16 = 20;
 
-pub const MIN_SUB_DURATION: i32 = 90;
+pub const MIN_SUB_DURATION: i32 = 20;
 pub const MAX_SUB_DURATION: i32 = 21_600;
 
 pub const CANVAS_MODEL: &str = "model-report-results.png";
