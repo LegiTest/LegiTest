@@ -264,7 +264,7 @@ fn print_layout(img: &mut DynamicImage, g_instance: &InstanceInfo, results: &Res
         142,
         Scale { x: 21.0, y: 21.0 },
         &g_instance.results_font,
-        "Jugement majoritaire",
+        "Meilleure médiane",
     );
 }
 
