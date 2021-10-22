@@ -495,6 +495,10 @@ a.why-back {
     margin: 0;
 }
 
+#disc-button > label {
+    cursor: pointer;
+}
+
 .net-box img, #disc-button img {
     height: 25px;
     min-width: 25px;
@@ -1187,7 +1191,6 @@ input.faq:checked ~ .tab-content {
     .soc > label {
         display: unset;
     }
-    
 }
 
 /* dirty fixes scrolling for safari iOS */
