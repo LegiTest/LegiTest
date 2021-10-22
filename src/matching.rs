@@ -21,7 +21,7 @@ pub struct GroupScore {
     pub score: i16,
 }
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct GroupMatch {
     // id is group_id
     pub id: i16,

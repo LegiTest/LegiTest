@@ -83,6 +83,8 @@ pub fn fetch_results(
             placeholder_results.push(ResultsPublicGroupes {
                 id: *group,
                 value_median: 0_f32,
+                value_average: 0_f32,
+                value_uninominal: 0_f32,
             });
         }
 

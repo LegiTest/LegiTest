@@ -19,11 +19,12 @@
         <meta property="og:locale" content="fr_FR" />
         <meta property="og:site_name" content="QuelParti.fr" />
         <link rel="preload" href="/assets/fonts/exo2-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-        <link rel="stylesheet" href="/assets/css/index.css?v=7"/>
+        <link rel="stylesheet" href="/assets/css/index.css?v=8"/>
+        <link rel="stylesheet" href="/assets/css/table.css?v=1"/>
         <link rel="icon" href="/assets/img/favicon/favicon.svg" type="image/svg+xml">
         <link rel="preload" href="/data/scrutins.json" as="fetch" crossorigin>
         <link rel="preload" href="/data/acteurs.json" as="fetch" crossorigin>
-        <script src="/assets/js/index.js?v=6"></script>
+        <script src="/assets/js/index.js?v=7"></script>
     </head>
     <body>
         <div class="main-view flex overflow-y">
@@ -147,8 +148,38 @@
                         <div id="results-graph" class="results-card results-graph hidden">
                             <h2>Score global</h2>
                             <span>Calculé à partir de toutes les participations au test</span>
-                            <div id="results-graph-content">
+                            <div class="css-tab-wrap">
+                                <input type="radio" id="tab1" name="tabGroup" class="css-tab" checked>
+                                <label for="tab1">Meilleure médiane</label>
+
+                                <input type="radio" id="tab2" name="tabGroup" class="css-tab">
+                                <label for="tab2">Meilleure moyenne</label>
+
+                                <input type="radio" id="tab3" name="tabGroup" class="css-tab">
+                                <label for="tab3">Scrutin uninominal</label>
+
+                                <div class="css-tab__content">
+                                    <div class="css-tab__content-in">
+                                        <div id="results-graph-value-median">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="css-tab__content">
+                                    <div class="css-tab__content-in">
+                                        <div id="results-graph-value-average">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="css-tab__content">
+                                    <div class="css-tab__content-in">
+                                        <div id="results-graph-value-uninominal">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <div id="chart-info"></div>
                         </div>
                         <div id="results-submit-div" class="hidden">
                             <br />
@@ -268,7 +299,7 @@
                                     <div class="tab-content">
                                         Sur la page des résultats, le score global est calculé à partir de tous les scores personnels qui ont été envoyés au serveur de QuelParti (votre consentement est demandé avec le bouton "Participer au graphique").
                                         <br />
-                                        Les résultats sont calculés par <a href="https://fr.wikipedia.org/wiki/Jugement_majoritaire" target="_blank">jugement majoritaire</a>&nbsp;: le score de chaque groupe politique est déterminé par la médiane de tous ses scores.
+                                        Les résultats sont calculés par plusieurs méthodes : le tri du score de chaque groupe politique par la meilleure médiane, par la meilleure moyenne, et selon la méthode actuelle de vote en France (scrutin uninominal).
                                         <br />
                                         Interprétez cependant ces résultats avec <a href="https://www.hacking-social.com/2014/06/23/sondages-statistiques-chiffres-ne-plus-se-faire-avoir/" target="_blank">la plus grande prudence</a>.
                                     </div>

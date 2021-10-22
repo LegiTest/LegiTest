@@ -12,6 +12,8 @@ pub struct ResultsPublic {
 pub struct ResultsPublicGroupes {
     pub id: i16,
     pub value_median: f32,
+    pub value_average: f32,
+    pub value_uninominal: f32,
 }
 
 #[derive(Serialize, Debug)]

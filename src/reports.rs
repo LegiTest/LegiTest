@@ -127,9 +127,13 @@ pub fn generate_report(
     let mut results_groups: Vec<ResultsPublicGroupes> = Vec::new();
 
     for group in &platform.groups {
+
+        let group_scores = get_group_scores(*group, &all_scores);
         results_groups.push(ResultsPublicGroupes {
             id: *group,
-            value_median: calc_median(*group, &all_scores),
+            value_median: calc_median(&group_scores),
+            value_average: calc_avg(&group_scores),
+            value_uninominal: calc_uninominal(*group, &all_scores),
         });
     }
 
@@ -148,8 +152,12 @@ pub fn generate_report(
     })
 }
 
-// Score calculation method: Majority judgement
-fn calc_median(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) -> f32 {
+// HashMap<i64, Vec<GroupMatch> is:
+//          ^-- submission ID
+//              ^-- Score per group as displayed on the results screen
+// Must be called for each group.
+// Returns an array containing the score from all submissions for a given group.
+fn get_group_scores(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) -> Vec<f32> {
     let mut group_allscores: Vec<f32> = Vec::new();
     for gv in all_scores.values() {
         // explore the Vec<GroupScore> element
@@ -164,8 +172,14 @@ fn calc_median(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) -> f32
             }
         }
     }
+
     // sort'em all
-    group_allscores.sort_by(|a, b| a.partial_cmp(b).expect("There's a NaN!!!"));
+    group_allscores.sort_by(|a, b| b.partial_cmp(a).expect("calc_median: There's a NaN!!!"));
+    group_allscores
+}
+
+// Score calculation method: Median
+fn calc_median(group_allscores: &[f32]) -> f32 {
 
     // return the median
     if let Some(v) = group_allscores.get(group_allscores.len() / 2) {
@@ -177,6 +191,63 @@ fn calc_median(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) -> f32
         );
         0.0
     }
+}
+
+
+// Score calculation method: Mean
+fn calc_avg(group_allscores: &[f32]) -> f32 {
+    let mut group_avg = 0_f64;
+
+    for score in group_allscores {
+        group_avg += f64::from(*score);
+    }
+
+    // return the average
+    (group_avg / (group_allscores.len() as f64)) as f32
+}
+
+// Score calculation method: Uninominal
+// with some small tweaks to adapt it to the test conditions
+// if best match -> +1, if not -> 0.
+// if best match along with OTHER best matches -> +(1 / best_matches_list.len())
+fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) -> f32 {
+    
+    let mut group_score = 0_f32;
+
+    for submission in all_scores.values() {
+        let mut max_sub: Vec<GroupMatch> = submission.to_vec();
+
+        // sort the group affinities
+        max_sub.sort_by(|a, b| {
+            b.affinity.partial_cmp(&a.affinity)
+                .expect("calc_uninominal: There's a NaN!!!")
+        });
+
+        // take only the first ones with an identical score
+        let best_matches_list: Vec<&GroupMatch> = max_sub.iter().filter(|a| {
+            a.affinity >= max_sub.first().expect("calc_uninominal: no first entry in scores array").affinity
+        }).collect();
+
+        // if the selected group is among the best matches,
+        // increment its score: divide 1.0 with the number of ex-aequo groups.
+        // ex.: alone = 1, two winners = 0.5, three = 0.33...
+        // else, the selected group isn't among the best matches: skip.
+        if best_matches_list.iter().find(|&m| m.id == group_id).is_some() {
+            match best_matches_list.len() {
+                // directly add 1.0 if the group is alone.
+                1 => group_score += 1.0,
+                // also handle a case that should never happen.
+                0 => { 
+                    eprintln!("calc_uninominal attempted to divide by zero??!");
+                    continue
+                },
+                _ => group_score += 1.0 / (best_matches_list.len() as f32),
+            };
+        }
+
+    }
+    // return a %
+    group_score / (all_scores.len() as f32) * 100.0
 }
 
 // hide sensitive data that may help to guess
@@ -195,6 +266,8 @@ pub fn groups_to_public(groups: &[ResultsGroupes]) -> Vec<ResultsPublicGroupes> 
         new_groups.push(ResultsPublicGroupes {
             id: group.group_id,
             value_median: group.value_median,
+            value_average: group.value_average,
+            value_uninominal: group.value_uninominal,
         });
     }
 

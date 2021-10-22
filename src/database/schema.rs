@@ -20,6 +20,8 @@ table! {
         result_id -> Int8,
         group_id -> Int2,
         value_median -> Float4,
+        value_average -> Float4,
+        value_uninominal -> Float4,
     }
 }
 

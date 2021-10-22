@@ -978,38 +978,66 @@ function displayResults() {
     }).reverse();
 
     // global score display
-    let results_tpl = "";
+    let results_tpl_med = "";
     for (let i = 0; i < results.groupes.length; i++) {
         let display = acteurs_list.organes[acteurs_list.organes.findIndex(o => o.id == results.groupes[i].id)].display;
         if (display) {
+            // display score for value_median
             results.groupes[i]["value_median"] = Number(results.groupes[i]["value_median"]).toFixed(1);
-            results_tpl += displayResults_tpl(results.groupes[i], "value_median");
+            results_tpl_med += displayResults_tpl(results.groupes[i], "value_median");
         }
     }
 
+    results.groupes.sort(function (a, b) {
+        return a.value_average - b.value_average;
+    }).reverse();
+
+    // global score display
+    let results_tpl_avg = "";
+    for (let i = 0; i < results.groupes.length; i++) {
+        let display = acteurs_list.organes[acteurs_list.organes.findIndex(o => o.id == results.groupes[i].id)].display;
+        if (display) {
+            // display score for value_average
+            results.groupes[i]["value_average"] = Number(results.groupes[i]["value_average"]).toFixed(1);
+            results_tpl_avg += displayResults_tpl(results.groupes[i], "value_average");
+        }
+    }
+    
+    results.groupes.sort(function (a, b) {
+        return a.value_uninominal - b.value_uninominal;
+    }).reverse();
+    
+    // global score display
+    let results_tpl_nom = "";
+    for (let i = 0; i < results.groupes.length; i++) {
+        let display = acteurs_list.organes[acteurs_list.organes.findIndex(o => o.id == results.groupes[i].id)].display;
+        if (display) {
+            // display score for value_uninominal
+            results.groupes[i]["value_uninominal"] = Number(results.groupes[i]["value_uninominal"]).toFixed(1);
+            results_tpl_nom += displayResults_tpl(results.groupes[i], "value_uninominal");
+        }
+    }
+
+
+    fillChartInfo(results);
+    get("results-graph-value-median").innerHTML = results_tpl_med;
+    get("results-graph-value-average").innerHTML = results_tpl_avg;
+    get("results-graph-value-uninominal").innerHTML = results_tpl_nom;
+}
+
+function fillChartInfo(results) {
+    let chartinfo_tpl = "";
+
     /* display another message if the stats are not ready */
     if (results.global.participations.total < 500) {
-        results_tpl += `
-        <div class="chart-info">
-            <span>Statistiques non disponibles</span>
-            <span>Au moins 500 participations requises.</span>
-            <span>Encore ~${500-results.global.participations.valid} participations&nbsp;!</span>
-        </div>
-        `;
+        chartinfo_tpl += `Statistiques non disponibles&nbsp;: au moins 500 participations requises. Encore ~${500-results.global.participations.valid} participations&nbsp;!`;
     }
     else {
         let gendate = new Date(results.global.generated_at);
-        results_tpl += `
-        <div class="chart-info">
-            <span>Scrutin par jugement majoritaire</span>
-            <span>${results.global.participations.valid} / ${results.global.participations.total} participations</span>
-            <span>Dernière actualisation le ${gendate.toLocaleDateString()}</span>
-        </div>
-        `;
+        chartinfo_tpl += `${results.global.participations.total} participations (dont ${results.global.participations.valid} valides). Dernière actualisation le ${gendate.toLocaleDateString()}`;
     }
 
-    get("results-graph-content").innerHTML = results_tpl;
-
+    get("chart-info").innerHTML = chartinfo_tpl;
 }
 
 function displayResults_tpl(groupe, field_name) {

@@ -44,6 +44,8 @@ pub async fn int_genreport(dbpool: web::Data<DbPool>) -> Result<HttpResponse, In
                 result_id: single_result.id,
                 group_id: group.id,
                 value_median: group.value_median,
+                value_average: group.value_average,
+                value_uninominal: group.value_uninominal,
             });
         }
 

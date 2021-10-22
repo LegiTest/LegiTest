@@ -870,13 +870,11 @@ text-align: center;
     margin-bottom: 0.5rem;
 }
 
-.results-graph .chart-info {
-    float: right;
-    margin-top: -82px;
-    margin-right: 5px;
-    color: #FFFFFF73;
-    display: grid;
-    justify-items: end;
+#chart-info {
+    font-style: italic;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .chart-container {
@@ -1190,11 +1188,6 @@ input.faq:checked ~ .tab-content {
         display: unset;
     }
     
-    .results-graph .chart-info {
-        float: unset;
-        margin-top: 10px;
-        justify-items: start;
-    }
 }
 
 /* dirty fixes scrolling for safari iOS */

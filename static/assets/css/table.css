@@ -1,0 +1,122 @@
+.css-tab-wrap {
+    transition: 0.3s box-shadow ease;
+    border-radius: 6px;
+    max-width: 100%;
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    list-style: none;
+    background-color: #2eb0ff0d;
+    margin: 20px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.css-tab-wrap:hover {
+    box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
+}
+
+.css-tab {
+    display: none;
+}
+
+.css-tab:checked:nth-of-type(1) ~ .css-tab__content:nth-of-type(1) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    display: block;
+}
+
+.css-tab:checked:nth-of-type(2) ~ .css-tab__content:nth-of-type(2) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    display: block;
+}
+
+.css-tab:checked:nth-of-type(3) ~ .css-tab__content:nth-of-type(3) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    display: block;
+}
+
+.css-tab:checked:nth-of-type(4) ~ .css-tab__content:nth-of-type(4) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    display: block;
+}
+
+.css-tab:first-of-type:not(:last-of-type) + label {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.css-tab:not(:first-of-type):not(:last-of-type) + label {
+    border-radius: 0;
+}
+
+.css-tab:last-of-type:not(:first-of-type) + label {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.css-tab:checked + label {
+    background-color: #1b417114;
+    box-shadow: 0 -1px 0 #4a8ed270 inset;
+    cursor: default;
+}
+
+.css-tab:checked + label:hover {
+    box-shadow: 0 -1px 0 #4a8ed270 inset;
+    background-color: #213b5e12;
+}
+
+.css-tab + label {
+    box-shadow: 0 -1px 0 #5888c614 inset;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    -webkit-box-flex: 3;
+    flex-grow: 3;
+    text-align: center;
+    background-color: #5888c614;
+    user-select: none;
+    transition: 0.3s background-color ease, 0.3s box-shadow ease;
+    height: 50px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+.css-tab + label:hover {
+    background-color: #09090922;
+    box-shadow: 0 -1px 0 #4a8ed270 inset;
+}
+.css-tab__content {
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    opacity: 0;
+    left: 0;
+    transform: translateY(-3px);
+    border-radius: 6px;
+    display: none;
+}
+
+.css-tab__content-in {
+    padding: 25px 25px;
+}
+

@@ -69,6 +69,8 @@ pub struct ResultsGroupes {
     pub result_id: i64,
     pub group_id: i16,
     pub value_median: f32,
+    pub value_average: f32,
+    pub value_uninominal: f32,
 }
 
 #[derive(Serialize, Queryable, Identifiable, Insertable, Debug, Clone, PartialEq)]
