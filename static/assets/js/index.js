@@ -1022,7 +1022,7 @@ function displayResults() {
     fillChartInfo(results);
     get("results-graph-value-median").innerHTML = results_tpl_med;
     get("results-graph-value-average").innerHTML = results_tpl_avg;
-    get("results-graph-value-uninominal").innerHTML = results_tpl_nom;
+    get("results-graph-value-uniq").innerHTML = results_tpl_nom;
 }
 
 function fillChartInfo(results) {

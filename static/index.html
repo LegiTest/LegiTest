@@ -24,7 +24,7 @@
         <link rel="icon" href="/assets/img/favicon/favicon.svg" type="image/svg+xml">
         <link rel="preload" href="/data/scrutins.json" as="fetch" crossorigin>
         <link rel="preload" href="/data/acteurs.json" as="fetch" crossorigin>
-        <script src="/assets/js/index.js?v=7"></script>
+        <script src="/assets/js/index.js?v=8"></script>
     </head>
     <body>
         <div class="main-view flex overflow-y">
@@ -156,7 +156,7 @@
                                 <label for="tab2">Meilleure moyenne</label>
 
                                 <input type="radio" id="tab3" name="tabGroup" class="css-tab">
-                                <label for="tab3">Scrutin uninominal</label>
+                                <label for="tab3">Choix unique</label>
 
                                 <div class="css-tab__content">
                                     <div class="css-tab__content-in">
@@ -174,7 +174,7 @@
                                 
                                 <div class="css-tab__content">
                                     <div class="css-tab__content-in">
-                                        <div id="results-graph-value-uninominal">
+                                        <div id="results-graph-value-uniq">
                                         </div>
                                     </div>
                                 </div>
@@ -299,7 +299,7 @@
                                     <div class="tab-content">
                                         Sur la page des résultats, le score global est calculé à partir de tous les scores personnels qui ont été envoyés au serveur de QuelParti (votre consentement est demandé avec le bouton "Participer au graphique").
                                         <br />
-                                        Les résultats sont calculés par plusieurs méthodes : le tri du score de chaque groupe politique par la meilleure médiane, par la meilleure moyenne, et selon la méthode actuelle de vote en France (scrutin uninominal).
+                                        Les résultats sont calculés par plusieurs méthodes : le tri du score de chaque groupe politique par la meilleure médiane, par la meilleure moyenne, et par une méthode ressemblant à celle du scrutin uninominal majoritaire à un tour (dénommée "choix unique").
                                         <br />
                                         Interprétez cependant ces résultats avec <a href="https://www.hacking-social.com/2014/06/23/sondages-statistiques-chiffres-ne-plus-se-faire-avoir/" target="_blank">la plus grande prudence</a>.
                                     </div>
