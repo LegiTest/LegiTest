@@ -255,8 +255,7 @@ fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) ->
         // else, the selected group isn't among the best matches: skip.
         if best_matches_list
             .iter()
-            .find(|&m| m.id == group_id)
-            .is_some()
+            .any(|m| m.id == group_id)
         {
             match best_matches_list.len() {
                 // directly add 1.0 if the group is alone.

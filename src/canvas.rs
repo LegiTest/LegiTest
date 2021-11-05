@@ -71,7 +71,7 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
         } else {
             return Err(throw(
                 ErrorKind::CritCanvasGroupColor,
-                format!("{}", &group.0.color),
+                group.0.color.to_string(),
             ));
         };
 
