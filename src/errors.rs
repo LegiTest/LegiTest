@@ -91,7 +91,7 @@ pub enum ErrorKind {
 impl ErrorKind {
     // returns true for items that must display only if debug mode is enabled
     // will return 200 OK for those items if config hide_errors == true
-    
+
     // NOTE: CritAbuseIpDbApiFail is special, because the error is
     // non-blocking and handled server-side.
     pub fn is_info(&self) -> bool {

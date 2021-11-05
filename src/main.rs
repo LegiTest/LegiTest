@@ -12,13 +12,13 @@ extern crate diesel_migrations;
 extern crate image;
 
 mod abuseipdb;
+mod canvas;
 mod config;
 mod database;
 mod errors;
 mod handlers;
 mod matching;
 mod reports;
-mod canvas;
 
 use actix_files::Files;
 use actix_session::CookieSession;

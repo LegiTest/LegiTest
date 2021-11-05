@@ -1,14 +1,14 @@
 use crate::config::global::{
-    ACTEURS_FILE, ASN_BLACKLIST_FILE, ASN_LIST_FILE, CONFIG_FILE, INSTANCE, IPV4_BLACKLIST_FILE,
-    IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE, FONT_BYTES
+    ACTEURS_FILE, ASN_BLACKLIST_FILE, ASN_LIST_FILE, CONFIG_FILE, FONT_BYTES, INSTANCE,
+    IPV4_BLACKLIST_FILE, IPV4_WHITELIST_FILE, PLATFORMS_FILE, SCRUTINS_FILE,
 };
 use crate::config::structs::{
     ASNBLEntry, ASNLEntry, Acteurs, ConfigFile, IPV4BLEntry, IPV4WLEntry, InstanceInfo, Platform,
     Scrutin,
 };
 
-use rusttype::Font;
 use chrono::offset::Utc;
+use rusttype::Font;
 use std::fs::File;
 use std::io::Read;
 
@@ -234,8 +234,6 @@ impl InstanceInfo {
     }
 
     pub fn init() -> InstanceInfo {
-        
-
         InstanceInfo {
             config: InstanceInfo::read_config(CONFIG_FILE),
             platforms_list: InstanceInfo::read_platforms(PLATFORMS_FILE),

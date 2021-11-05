@@ -27,25 +27,25 @@ pub fn generate_report(
     // 1. check if the poll is still open
     if platform.end_at < generated_at {
         return Err(throw(
-                ErrorKind::InfoPollClosed,
-                format!("{}: {} - {}", platform.id, platform.end_at, generated_at),
+            ErrorKind::InfoPollClosed,
+            format!("{}: {} - {}", platform.id, platform.end_at, generated_at),
         ));
     }
 
     // 2. get a count of the valid submissions
     let valid_sub_count =
         Submissions::count_valid(platform.id, conn, platform.begin_at, generated_at)
-        .map_err(|e| throw(ErrorKind::CritReportCountValid, e.to_string()))?;
+            .map_err(|e| throw(ErrorKind::CritReportCountValid, e.to_string()))?;
 
     // 3. check if the poll has reached its minimum participations
     if valid_sub_count < i64::from(platform.minimum_participations) {
         // if it didn't, do not generate a report
         return Err(throw(
-                ErrorKind::InfoNotEnoughSubs,
-                format!(
-                    "{}: {} / {}",
-                    platform.id, valid_sub_count, platform.minimum_participations
-                ),
+            ErrorKind::InfoNotEnoughSubs,
+            format!(
+                "{}: {} / {}",
+                platform.id, valid_sub_count, platform.minimum_participations
+            ),
         ));
     }
 
@@ -56,7 +56,7 @@ pub fn generate_report(
     // 5. get all the valid submissionschoices!
     let subchoices_list =
         Submissions::get_valid(platform.id, conn, platform.begin_at, generated_at)
-        .map_err(|e| throw(ErrorKind::CritReportGetValid, e.to_string()))?;
+            .map_err(|e| throw(ErrorKind::CritReportGetValid, e.to_string()))?;
 
     // 6. basically, do a GROUP BY
     let mut submissions_list: HashMap<i64, Vec<UserOpinion>> = HashMap::new();
@@ -68,8 +68,8 @@ pub fn generate_report(
             None => {
                 // should never happen
                 return Err(throw(
-                        ErrorKind::FatalUnmatchedChoice,
-                        subc.userchoice.to_string(),
+                    ErrorKind::FatalUnmatchedChoice,
+                    subc.userchoice.to_string(),
                 ));
             }
         };
@@ -83,8 +83,8 @@ pub fn generate_report(
                 }),
                 None => {
                     return Err(throw(
-                            ErrorKind::FatalMissingSubmission,
-                            format!("{:?}", subc),
+                        ErrorKind::FatalMissingSubmission,
+                        format!("{:?}", subc),
                     ));
                 }
             }
@@ -105,8 +105,8 @@ pub fn generate_report(
             Some(v) => v,
             None => {
                 return Err(throw(
-                        ErrorKind::FatalInvalidScoreCalc,
-                        format!("{:?}", scores),
+                    ErrorKind::FatalInvalidScoreCalc,
+                    format!("{:?}", scores),
                 ));
             }
         };
@@ -116,8 +116,8 @@ pub fn generate_report(
             Some(v) => v,
             None => {
                 return Err(throw(
-                        ErrorKind::FatalInvalidScoreConv,
-                        format!("{:?}", scores),
+                    ErrorKind::FatalInvalidScoreConv,
+                    format!("{:?}", scores),
                 ));
             }
         };
@@ -217,12 +217,18 @@ fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) ->
         let max_sub: Vec<GroupMatch> = submission.to_vec();
 
         // filter out groups with display=false
-        let mut max_sub = max_sub.iter()
+        let mut max_sub = max_sub
+            .iter()
             .filter(|a| {
-                let ni = g_instance.acteurs_list.organes.iter().find(|g| g.id == a.id)
+                let ni = g_instance
+                    .acteurs_list
+                    .organes
+                    .iter()
+                    .find(|g| g.id == a.id)
                     .expect("");
                 ni.display
-            }).collect::<Vec<&GroupMatch>>();
+            })
+            .collect::<Vec<&GroupMatch>>();
 
         // sort the group affinities
         max_sub.sort_by(|a, b| {
@@ -237,11 +243,11 @@ fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) ->
             .filter(|a| {
                 a.affinity
                     >= max_sub
-                    .first()
-                    .expect("calc_uninominal: no first entry in scores array")
-                    .affinity
+                        .first()
+                        .expect("calc_uninominal: no first entry in scores array")
+                        .affinity
             })
-        .collect();
+            .collect();
 
         // if the selected group is among the best matches,
         // increment its score: divide 1.0 with the number of ex-aequo groups.
@@ -249,8 +255,8 @@ fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) ->
         // else, the selected group isn't among the best matches: skip.
         if best_matches_list
             .iter()
-                .find(|&m| m.id == group_id)
-                .is_some()
+            .find(|&m| m.id == group_id)
+            .is_some()
         {
             match best_matches_list.len() {
                 // directly add 1.0 if the group is alone.

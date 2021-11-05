@@ -1,5 +1,5 @@
 //use crate::database::schema::{addresses, submissions};
-use crate::config::global::{AC_HIGHEST, AC_LOWEST, MIN_SUB_DURATION, MAX_SUB_DURATION};
+use crate::config::global::{AC_HIGHEST, AC_LOWEST, MAX_SUB_DURATION, MIN_SUB_DURATION};
 use crate::database::models::{InsertableResult, InsertableSubmissions};
 use crate::database::structs::{
     Addresses, Results, ResultsGroupes, Submissions, SubmissionsChoices,

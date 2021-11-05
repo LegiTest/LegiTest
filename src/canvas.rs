@@ -3,9 +3,7 @@ use crate::config::global::{
 };
 use crate::config::structs::InstanceInfo;
 use crate::config::structs::Organes;
-use crate::database::views::{
-    ResultsPublic, ResultsPublicGroupes,
-};
+use crate::database::views::{ResultsPublic, ResultsPublicGroupes};
 use crate::errors::{throw, ErrorKind, InstanceError};
 
 use image::{DynamicImage, GenericImage, ImageFormat, Rgba};
@@ -21,19 +19,15 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
     let mut img = image::load(
         BufReader::new(
             File::open(CANVAS_MODEL)
-            .map_err(|e| {
-                eprintln!("Unable to open canvas model");
-                e
-            })
-            .map_err(|e| {
-                throw(ErrorKind::CritCanvasModelOpen, e.to_string())
-            })?,
+                .map_err(|e| {
+                    eprintln!("Unable to open canvas model");
+                    e
+                })
+                .map_err(|e| throw(ErrorKind::CritCanvasModelOpen, e.to_string()))?,
         ),
         ImageFormat::Png,
     )
-        .map_err(|e| {
-            throw(ErrorKind::CritCanvasModelLoad, e.to_string())
-        })?;
+    .map_err(|e| throw(ErrorKind::CritCanvasModelLoad, e.to_string()))?;
 
     // print general info to image
     print_layout(&mut img, g_instance, results);
@@ -61,8 +55,8 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
             v
         } else {
             return Err(throw(
-                    ErrorKind::CritNoLeadingGroup,
-                    format!("{:?}", leading_group_info),
+                ErrorKind::CritNoLeadingGroup,
+                format!("{:?}", leading_group_info),
             ));
         };
 
@@ -75,7 +69,10 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
         let group_color = if let Some(c) = color_hex2rgb(&group.0.color) {
             c
         } else {
-            return Err(throw(ErrorKind::CritCanvasGroupColor, format!("{}", &group.0.color)));
+            return Err(throw(
+                ErrorKind::CritCanvasGroupColor,
+                format!("{}", &group.0.color),
+            ));
         };
 
         display_group(
@@ -92,16 +89,18 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
     let leading_group_info = if let Some(l) = leaderboard_desc.iter().find(|l| l.0.display) {
         l
     } else {
-        return Err(throw(ErrorKind::CritCanvasGroupInfo, format!("{:?}", leaderboard_desc)));
+        return Err(throw(
+            ErrorKind::CritCanvasGroupInfo,
+            format!("{:?}", leaderboard_desc),
+        ));
     };
 
     //img.save("foo.png")?;
     //println!("Printed to file");
 
     let mut img_bytes: Vec<u8> = Vec::new();
-    img.write_to(&mut img_bytes, image::ImageOutputFormat::Png).map_err(|e| {
-        throw(ErrorKind::CritCanvasWriteBytes, e.to_string())
-    })?;
+    img.write_to(&mut img_bytes, image::ImageOutputFormat::Png)
+        .map_err(|e| throw(ErrorKind::CritCanvasWriteBytes, e.to_string()))?;
 
     Ok((format!(
                 "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({:.1} %)\n#QuelParti https://quelparti.fr\n",
@@ -242,7 +241,10 @@ fn print_layout(img: &mut DynamicImage, g_instance: &InstanceInfo, results: &Res
         90,
         Scale { x: 18.0, y: 18.0 },
         &g_instance.results_font,
-        &format!("dont {} comptabilisées", results.global.participations.valid),
+        &format!(
+            "dont {} comptabilisées",
+            results.global.participations.valid
+        ),
     );
 
     // Drawing scrutin mode label

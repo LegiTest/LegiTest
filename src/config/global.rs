@@ -35,4 +35,3 @@ pub const CANVAS_BARWIDTH: u32 = 12;
 pub const CANVAS_BARCOEFF: f32 = 6.0;
 pub const CANVAS_STARTX: u32 = 220;
 pub const CANVAS_STARTY: u32 = 255;
-

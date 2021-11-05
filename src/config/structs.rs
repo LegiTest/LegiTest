@@ -1,7 +1,7 @@
 use chrono::naive::NaiveDate;
+use rusttype::Font;
 use serde_derive::Deserialize;
 use std::collections::HashMap;
-use rusttype::Font;
 
 use crate::database::structs::Choice;
 

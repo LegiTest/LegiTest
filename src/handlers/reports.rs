@@ -1,15 +1,15 @@
 use actix_web::http::StatusCode;
 use actix_web::{get, web, HttpResponse, Result};
 use chrono::Utc;
+use twapi_reqwest::reqwest::multipart::{Form, Part};
 use twapi_reqwest::v1;
-use twapi_reqwest::reqwest::multipart::{Part, Form};
 
+use crate::canvas::gen_results_image;
 use crate::config::structs::InstanceInfo;
 use crate::database::models::InsertableResult;
 use crate::database::structs::{Results, ResultsGroupes};
 use crate::errors::{throw, ErrorKind, InstanceError};
 use crate::handlers::results::fetch_results;
-use crate::canvas::gen_results_image;
 use crate::reports::generate_report;
 use crate::DbPool;
 
@@ -51,7 +51,7 @@ pub async fn int_genreport(dbpool: web::Data<DbPool>) -> Result<HttpResponse, In
 
         ResultsGroupes::insert(&resultsgroupes, &conn)
             .map_err(|e| throw(ErrorKind::CritReportInsertGroups, e.to_string()))?;
-        }
+    }
     Ok(HttpResponse::build(StatusCode::OK)
         .content_type("text/plain; charset=utf-8")
         .body("OK"))
@@ -84,8 +84,8 @@ pub async fn int_pubreport(
         Some(v) => v,
         None => {
             return Err(throw(
-                    ErrorKind::WarnResultsNoPlatform,
-                    params.hostname.clone(),
+                ErrorKind::WarnResultsNoPlatform,
+                params.hostname.clone(),
             ));
         }
     };
@@ -106,9 +106,11 @@ pub async fn int_pubreport(
     };
 
     if g_instance.config.do_not_publish {
-        println!("Not publishing because do_not_publish is true: {:?}", results_msg.0);
+        println!(
+            "Not publishing because do_not_publish is true: {:?}",
+            results_msg.0
+        );
     } else {
-
         // can't use Option here because form_options must be Vec<&str, &str>
         // so the variable, passed through a `if let`, won't live long enough
         let mut attachment: String = String::new();
@@ -126,11 +128,11 @@ pub async fn int_pubreport(
                 &g_instance.config.twitter_api_oauth_token,
                 &g_instance.config.twitter_api_oauth_secret,
             )
-                .await
-                .map_err(|e| { throw(ErrorKind::CritTwitterUpReqFail, e.to_string())})?
-                .json()
-                .await
-                .map_err(|e| { throw(ErrorKind::CritTwitterUpRespFail, e.to_string())})?;
+            .await
+            .map_err(|e| throw(ErrorKind::CritTwitterUpReqFail, e.to_string()))?
+            .json()
+            .await
+            .map_err(|e| throw(ErrorKind::CritTwitterUpRespFail, e.to_string()))?;
 
             // get the media_id value from json
             if let Some(media_id_str) = res.get("media_id") {
@@ -138,10 +140,16 @@ pub async fn int_pubreport(
                 attachment = if let Some(media_id_u64) = media_id_str.as_u64() {
                     media_id_u64.to_string()
                 } else {
-                    return Err(throw(ErrorKind::CritTwitterUpMediaInt, format!("{:?}", media_id_str)));
+                    return Err(throw(
+                        ErrorKind::CritTwitterUpMediaInt,
+                        format!("{:?}", media_id_str),
+                    ));
                 }
             } else {
-                return Err(throw(ErrorKind::CritTwitterUpMediaGet, format!("{:?}", res.get("media_id"))));
+                return Err(throw(
+                    ErrorKind::CritTwitterUpMediaGet,
+                    format!("{:?}", res.get("media_id")),
+                ));
             }
 
             // convert the media_id to u64
@@ -168,13 +176,12 @@ pub async fn int_pubreport(
             &g_instance.config.twitter_api_oauth_token,
             &g_instance.config.twitter_api_oauth_secret,
         )
-            .await
-            .map_err(|e| throw(ErrorKind::CritTwitterReqFail, e.to_string()))?
-            .json()
-            .await
-            .map_err(|e| throw(ErrorKind::CritTwitterRespFail, e.to_string()))?;
-        }
-
+        .await
+        .map_err(|e| throw(ErrorKind::CritTwitterReqFail, e.to_string()))?
+        .json()
+        .await
+        .map_err(|e| throw(ErrorKind::CritTwitterRespFail, e.to_string()))?;
+    }
 
     Ok(HttpResponse::build(StatusCode::OK)
         .content_type("text/plain; charset=utf-8")
