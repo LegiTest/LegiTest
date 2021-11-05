@@ -225,7 +225,7 @@ fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) ->
                     .organes
                     .iter()
                     .find(|g| g.id == a.id)
-                    .expect("");
+                    .expect("calc_uninominal: can't find the corresponding group");
                 ni.display
             })
             .collect::<Vec<&GroupMatch>>();
