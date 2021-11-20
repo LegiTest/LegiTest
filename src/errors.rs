@@ -84,7 +84,6 @@ pub enum ErrorKind {
     CritCanvasModelOpen,    // failed to open the canvas model
     CritCanvasModelLoad,    // failed to load the canvas model
     CritCanvasGroupColor,   // failed to parse the group color (canvas gen)
-    CritCanvasGroupInfo,    // failed to get the first group information
     CritCanvasWriteBytes,   // failed to convert the image to a bytes array
 }
 

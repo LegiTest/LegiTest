@@ -85,14 +85,37 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
         );
     }
 
-    // leading group information for tweet text
-    let leading_group_info = if let Some(l) = leaderboard_desc.iter().find(|l| l.0.display) {
-        l
+    // leading group information for tweet text.
+    // takes ALL the first groups (best score at calc_median).
+    let leading_groups_info: Vec<&(Organes, ResultsPublicGroupes)> =
+        leaderboard_desc.iter().filter(|l| l.0.display
+        && l.1.value_median >= leaderboard_desc.iter().find(|l| l.0.display)
+            .expect("canvas: there is no first entry in scores array")
+            .1.value_median
+    ).collect();
+        
+    let first_group = leading_groups_info.first()
+            .expect("canvas: there's no leading group? shouldn't happen.");
+
+    let message = if leading_groups_info.len() > 1 {
+        let groups_str = leading_groups_info.iter().map(|l| format!("#{}", l.0.abrev)).collect::<Vec<String>>().join(" ");
+        format!("Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupes en tête : {} ({:.1} %)\n#QuelParti https://quelparti.fr\n",
+                results.global.generated_at.format("%d/%m/%Y"),
+                results.global.participations.valid,
+                results.global.participations.total,
+                groups_str,
+                first_group.1.value_median
+            )
     } else {
-        return Err(throw(
-            ErrorKind::CritCanvasGroupInfo,
-            format!("{:?}", leaderboard_desc),
-        ));
+        format!(
+                "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({:.1} %)\n#QuelParti https://quelparti.fr\n",
+                results.global.generated_at.format("%d/%m/%Y"),
+                results.global.participations.valid,
+                results.global.participations.total,
+                first_group.0.name,
+                first_group.0.abrev,
+                first_group.1.value_median,
+        )
     };
 
     //img.save("foo.png")?;
@@ -102,16 +125,7 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
     img.write_to(&mut img_bytes, image::ImageOutputFormat::Png)
         .map_err(|e| throw(ErrorKind::CritCanvasWriteBytes, e.to_string()))?;
 
-    Ok((format!(
-                "Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupe en tête : {} #{} ({:.1} %)\n#QuelParti https://quelparti.fr\n",
-                results.global.generated_at.format("%d/%m/%Y"),
-                results.global.participations.valid,
-                results.global.participations.total,
-                leading_group_info.0.name,
-                leading_group_info.0.abrev,
-                leading_group_info.1.value_median,
-    ),
-    img_bytes))
+    Ok((message, img_bytes))
 }
 
 fn display_group(
