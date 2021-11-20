@@ -87,18 +87,30 @@ pub fn gen_results_image(results: &ResultsPublic) -> Result<(String, Vec<u8>), I
 
     // leading group information for tweet text.
     // takes ALL the first groups (best score at calc_median).
-    let leading_groups_info: Vec<&(Organes, ResultsPublicGroupes)> =
-        leaderboard_desc.iter().filter(|l| l.0.display
-        && l.1.value_median >= leaderboard_desc.iter().find(|l| l.0.display)
-            .expect("canvas: there is no first entry in scores array")
-            .1.value_median
-    ).collect();
-        
-    let first_group = leading_groups_info.first()
-            .expect("canvas: there's no leading group? shouldn't happen.");
+    let leading_groups_info: Vec<&(Organes, ResultsPublicGroupes)> = leaderboard_desc
+        .iter()
+        .filter(|l| {
+            l.0.display
+                && l.1.value_median
+                    >= leaderboard_desc
+                        .iter()
+                        .find(|l| l.0.display)
+                        .expect("canvas: there is no first entry in scores array")
+                        .1
+                        .value_median
+        })
+        .collect();
+
+    let first_group = leading_groups_info
+        .first()
+        .expect("canvas: there's no leading group? shouldn't happen.");
 
     let message = if leading_groups_info.len() > 1 {
-        let groups_str = leading_groups_info.iter().map(|l| format!("#{}", l.0.abrev)).collect::<Vec<String>>().join(" ");
+        let groups_str = leading_groups_info
+            .iter()
+            .map(|l| format!("#{}", l.0.abrev))
+            .collect::<Vec<String>>()
+            .join(" ");
         format!("Statistiques de participation globales en date du {}\nComptabilisées : {} | Total : {}\nGroupes en tête : {} ({:.1} %)\n#QuelParti https://quelparti.fr\n",
                 results.global.generated_at.format("%d/%m/%Y"),
                 results.global.participations.valid,

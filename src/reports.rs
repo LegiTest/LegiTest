@@ -253,10 +253,7 @@ fn calc_uninominal(group_id: i16, all_scores: &HashMap<i64, Vec<GroupMatch>>) ->
         // increment its score: divide 1.0 with the number of ex-aequo groups.
         // ex.: alone = 1, two winners = 0.5, three = 0.33...
         // else, the selected group isn't among the best matches: skip.
-        if best_matches_list
-            .iter()
-            .any(|m| m.id == group_id)
-        {
+        if best_matches_list.iter().any(|m| m.id == group_id) {
             match best_matches_list.len() {
                 // directly add 1.0 if the group is alone.
                 1 => group_score += 1.0,
