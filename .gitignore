@@ -5,3 +5,5 @@ config/*/*
 data/*
 Cargo.lock
 target/
+static/data
+/httpserver.py
