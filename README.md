@@ -29,6 +29,28 @@ Les fichiers suivants doivent être présents :
 
 À partir de ces fichiers, le script `setup.sh` peut générer le reste de la configuration.
 
+### Environnement de développement
+
+#### Côté client
+
+Pour simplement travailler sur le côté client, il est possible d'utiliser le script `scripts/client/httpserver.py`. Il est nécessaire de créer un dossier `static/data/` dans lequel déposer les données normalement envoyées par le côté serveur.
+
+```sh
+git clone https://github.com/QuelParti/QuelParti
+cd QuelParti
+mkdir static/data
+wget https://quelparti.fr/data/acteurs.json -O static/data/acteurs.json
+wget https://quelparti.fr/data/scrutins.json -O static/data/scrutins.json
+cp scripts/client/httpserver.py .
+./httpserver.py
+```
+
+Le serveur HTTP sera accessible en local sur le port 8000. Une erreur s'affichera dans la console JavaScript concernant le token CSRF manquant, c'est normal étant donné que le côté serveur n'est pas déployé en local.
+
+#### Côté serveur
+
+Il est nécessaire d'installer Cargo, Rust, et de compiler le projet (branche Rust stable). Voir la section Installation.
+
 ### Déploiement
 
 Il est fortement recommandé de déployer QuelParti derrière un reverse-proxy comme Nginx afin de contrôler plus facilement le routage des requêtes (notamment bloquer la route `/internal` et servir certains fichiers dans `static/assets/txt/`) et de servir directement le dossier `static/` via le reverse-proxy.
