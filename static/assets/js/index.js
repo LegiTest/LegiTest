@@ -552,7 +552,7 @@ function generateScrutinsTable() {
             `<tr data-id="${acteur.data.id}" data-type="depute">
                 <td data-colid="-1">
                 <figure class="ball" style="background-color: ${fmt(acteurs_list.organes.find(o => o.id == acteur.data.organe).color)}"></figure>
-                ${fmt(acteur.data.name)}
+                <a href="https://www2.assemblee-nationale.fr/deputes/fiche/OMC_${fmt(acteur.data.id)}">${fmt(acteur.data.name)}</a> 
                 </td>
                 ${scrutins_list.map((scrutin_data, index_y) =>
                     `<td data-colid="${index_y}" data-rowid="${index}">${checkVote(acteur.data.id, scrutin_data)}</td>`
@@ -874,7 +874,7 @@ async function loadResults() {
 
     get("match-depute-img").src = `/assets/img/deputes/${depute_data.id.replace("PA", "")}.jpg`;
     let depute_groupe = acteurs_list.organes[acteurs_list.organes.findIndex(o => o.id == depute_data.organe)];
-    get("match-depute-name").innerHTML = `${depute_data.name} (${depute_groupe.abrev})`;
+    get("match-depute-name").innerHTML = `<a href="https://www2.assemblee-nationale.fr/deputes/fiche/OMC_${depute_data.id}"> ${depute_data.name} (${depute_groupe.abrev}) <a/>`;
 
     /* getting results from API */
     if (Object.keys(results).length == 0) {
