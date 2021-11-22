@@ -12,7 +12,7 @@ Inspirée des sites de tests politiques tels que [PolitiScales](https://politisc
 
 ### Idée générale
 
-À partir de cette finalité, quelques règles ont été établies dans afin d'établir les lignes directrices du projet.
+À partir de cette finalité, quelques règles ont été définies afin de poser les lignes directrices du projet.
 
 1. Les questions posées dans le test portent uniquement sur des textes débattus et votés dans des institutions parlementaires.
     - Pour la plateforme QuelParti, l'Assemblée nationale a été choisie.
