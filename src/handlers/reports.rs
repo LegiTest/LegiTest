@@ -1,16 +1,16 @@
 use actix_web::http::StatusCode;
 use actix_web::{get, web, HttpResponse, Result};
 use chrono::Utc;
-use twapi_reqwest::reqwest::multipart::{Form, Part};
-use twapi_reqwest::v1;
 
 use crate::canvas::gen_results_image;
-use crate::config::structs::InstanceInfo;
+use crate::config::structs::{InstanceInfo, Platform};
 use crate::database::models::InsertableResult;
 use crate::database::structs::{Results, ResultsGroupes};
+use crate::database::views::ResultsPublic;
 use crate::errors::{throw, ErrorKind, InstanceError};
 use crate::handlers::results::fetch_results;
 use crate::reports::generate_report;
+use crate::tweet::{publish_tweet, upload_attachment};
 use crate::DbPool;
 
 #[get("/internal/generate_report")]
@@ -90,100 +90,33 @@ pub async fn int_pubreport(
         }
     };
 
-    // If the results aren't available yet, display a different message
+    let results_msg = format_tweet(&results_public, &platform, "value_median")?;
 
-    // results_msg is (String, Option<Vec<u8>>)
-    // String: message (tweet) to send ; Vec<u8> is the media attachment
-    let results_msg = if results_public.global.participations.total == 0 {
-        (format!(
-                "Participations restantes avant la publication des résultats : {} / {}.\n#QuelParti https://quelparti.fr\n",
-                platform.minimum_participations - results_public.global.participations.valid as u32,
-                platform.minimum_participations,
-        ), None)
-    } else {
-        let generated_image = gen_results_image(&results_public)?;
-        (generated_image.0, Some(generated_image.1))
-    };
-
-    if g_instance.config.do_not_publish {
-        println!(
-            "Not publishing because do_not_publish is true: {:?}",
-            results_msg.0
-        );
-    } else {
-        // can't use Option here because form_options must be Vec<&str, &str>
-        // so the variable, passed through a `if let`, won't live long enough
-        let mut attachment: String = String::new();
-        if let Some(img) = results_msg.1 {
-            // publish attachment (if any)
-            let part = Part::bytes(img);
-            let data = Form::new().part("media", part);
-            let url = "https://upload.twitter.com/1.1/media/upload.json";
-            let res: serde_json::Value = v1::multipart(
-                url,
-                &vec![],
-                data,
-                &g_instance.config.twitter_api_client_id,
-                &g_instance.config.twitter_api_client_secret,
-                &g_instance.config.twitter_api_oauth_token,
-                &g_instance.config.twitter_api_oauth_secret,
-            )
-            .await
-            .map_err(|e| throw(ErrorKind::CritTwitterUpReqFail, e.to_string()))?
-            .json()
-            .await
-            .map_err(|e| throw(ErrorKind::CritTwitterUpRespFail, e.to_string()))?;
-
-            // get the media_id value from json
-            if let Some(media_id_str) = res.get("media_id") {
-                // convert media_id to u64
-                attachment = if let Some(media_id_u64) = media_id_str.as_u64() {
-                    media_id_u64.to_string()
-                } else {
-                    return Err(throw(
-                        ErrorKind::CritTwitterUpMediaInt,
-                        format!("{:?}", media_id_str),
-                    ));
-                }
-            } else {
-                return Err(throw(
-                    ErrorKind::CritTwitterUpMediaGet,
-                    format!("{:?}", res.get("media_id")),
-                ));
-            }
-
-            // convert the media_id to u64
-        }
-
-        // publish tweet
-        println!("Publishing: {:?}", results_msg.0);
-        // now connects to the Twitter API
-        // statuses/update
-        let url = "https://api.twitter.com/1.1/statuses/update.json";
-        let mut form_options = vec![("status", results_msg.0.as_str())];
-
-        // include the attachment if exists
-        if !attachment.is_empty() {
-            form_options.push(("media_ids", &attachment));
-        }
-
-        let _: serde_json::Value = v1::post(
-            url,
-            &vec![],
-            &form_options,
-            &g_instance.config.twitter_api_client_id,
-            &g_instance.config.twitter_api_client_secret,
-            &g_instance.config.twitter_api_oauth_token,
-            &g_instance.config.twitter_api_oauth_secret,
-        )
-        .await
-        .map_err(|e| throw(ErrorKind::CritTwitterReqFail, e.to_string()))?
-        .json()
-        .await
-        .map_err(|e| throw(ErrorKind::CritTwitterRespFail, e.to_string()))?;
+    if let Some(img) = results_msg.1 {
+        let media_id = upload_attachment(&img).await;
     }
+    else {
+
+    }
+
 
     Ok(HttpResponse::build(StatusCode::OK)
         .content_type("text/plain; charset=utf-8")
         .body(results_msg.0))
+}
+    
+// returns results_msg, which is (String, Option<Vec<u8>>)
+// String: message (tweet) to send ; Vec<u8> is the media attachment
+fn format_tweet(results_public: &ResultsPublic, platform: &Platform, calc_method: &str) -> Result<(String, Option<Vec<u8>>), InstanceError> {
+    // If the results aren't available yet, display a different message
+    if results_public.global.participations.total == 0 {
+        Ok((format!(
+                    "Participations restantes avant la publication des résultats : {} / {}.\n#QuelParti https://quelparti.fr\n",
+                    platform.minimum_participations - results_public.global.participations.valid as u32,
+                    platform.minimum_participations,
+        ), None))
+    } else {
+        let generated_image = gen_results_image(&results_public)?;
+        Ok((generated_image.0, Some(generated_image.1)))
+    }
 }

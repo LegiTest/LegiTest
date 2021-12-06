@@ -19,6 +19,7 @@ mod errors;
 mod handlers;
 mod matching;
 mod reports;
+mod tweet;
 
 use actix_files::Files;
 use actix_session::CookieSession;
