@@ -888,7 +888,7 @@ async function loadResults() {
     let results_intent = `Mes résultats au test QuelParti.fr
 Meilleure correspondance (député) : {PL_DEP} 
 Meilleure correspondance (groupe politique) : {PL_GP} ({PL_GP_PCT} d'affinité)\n`
-        .replace("{PL_DEP}", get("match-depute-name").innerHTML)
+        .replace("{PL_DEP}", get("match-depute-name").children[0].innerHTML)
         .replace("{PL_GP}", get("match-organe-name").innerHTML)
         .replace("{PL_GP_PCT}", get("match-view-content").children[0].children[2].innerHTML.replace("&nbsp;", ""));
     
