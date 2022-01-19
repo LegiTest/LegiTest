@@ -1,0 +1,70 @@
+[
+    {
+        "id": "VTANR5L15V1713",
+        "name": "Interdire le glyphosate",
+        "description": "Le glyphosate est l'herbicide le plus utilisé au monde. Son usage a été multiplié par 100 en 40 ans.",
+        "arguments": [
+            {
+                "type": "pour",
+                "comment": "Ce pesticide est dangereux pour la nature. Il est reconnu comme « probablement cancérigène » par l'OMS. Il est utilisé en masse dans l'agriculture industrielle. Écotoxique, il contamine les sols, l'air et l'eau, affectant gravement la biodiversité."
+            },
+            {
+                "type": "contre",
+                "comment": "À l'heure actuelle, il n'existe pas de solution qui soit aussi simple, rapide et peu coûteuse. Pour s'en passer, il serait nécessaire de changer nos pratiques culturales. Cela mettrait nos agriculteurs en difficulté."
+            }
+        ],
+        "question": "Proposition de loi : Interdire le glyphosate après deux ans de transition.",
+        "abbr": "Interdiction du glyphosate",
+        "sources": [
+            {
+                "name": "Dossier législatif : Interdiction du glyphosate",
+                "link": "https://www.assemblee-nationale.fr/dyn/15/dossiers/glyphosate_interdiction"
+            },
+            {
+                "name": "Compte-rendu : Séance du jeudi 21 février 2019",
+                "link": "https://www.assemblee-nationale.fr/dyn/15/comptes-rendus/seance/session-ordinaire-de-2018-2019/deuxieme-seance-du-jeudi-21-fevrier-2019"
+            },
+            {
+                "name": "Scrutin public sur la motion de renvoi en commission, déposée par M. Gilles Le Gendre, de la proposition de loi demandant l'interdiction du glyphosate (première lecture).",
+                "link": "https://www2.assemblee-nationale.fr/scrutins/detail/(legislature)/15/(num)/1713"
+            }
+        ],
+        "invert_votes": true
+    },
+    {
+        "id": "VTANR5L15V2059",
+        "name": "CETA : Accord économique entre l'UE et le Canada",
+        "description": "Un projet de loi vise à accepter un accord international de libre-échange, autorisant l'import et l'export de ressources agricoles plus facilement au sein de l'UE et avec le Canada, notamment sur le sucre, la viande bovine ou la volaille.",
+        "arguments": [
+            {
+                "type": "contre",
+                "comment": "Cet accord aura des conséquences néfastes sur l'environnement : la nourriture acheminée devra parcourir des milliers de kilomètres. De plus, les animaux d'élevage canadiens sont nourris avec des farines animales et des antibiotiques interdits en France, de même pour les pesticides. L'élevage local, français, ne pourra pas faire face à une telle concurrence."
+            },
+            {
+                "type": "pour",
+                "comment": "Le CETA a pour but de renforcer nos liens internationaux pour développer une relation de confiance avec les membres de l'UE et le Canada. Il permettra également de baisser les prix du marché français et de faciliter l'exportation de nos produits vers le Canada, cela encouragera le commerce international à l'ère de la mondialisation, créera des emplois et de la croissance."
+            }
+        ],
+        "question": "Que décidez-vous ?",
+        "abbr": "Accord CETA",
+        "sources": [
+            {
+                "name": "Dossier législatif : Accord économique et commercial global (CETA) et accord de partenariat stratégique entre l'UE et le Canada",
+                "link": "https://www.assemblee-nationale.fr/dyn/15/dossiers/aecg_partenariat_strategique_ue-canada?etape=15-AN1-DEPOT"
+            },
+            {
+                "name": "Scrutin public sur l'ensemble du projet de loi autorisant la ratification de l'accord économique et commercial global entre l'Union européenne et ses États membres, d'une part, et le Canada, d'autre part, et de l'accord de partenariat stratégique entre l'Union européenne et ses États membres, d'une part, et le Canada, d'autre part (première lecture).",
+                "link": "https://www2.assemblee-nationale.fr/scrutins/detail/(legislature)/15/(num)/2059"
+            },
+            {
+                "name": "Compte-rendu : Séance du mercredi 17 juillet 2019",
+                "link": "https://www.assemblee-nationale.fr/dyn/15/comptes-rendus/seance/session-extraordinaire-de-2018-2019/deuxieme-seance-du-mercredi-17-juillet-2019"
+            },
+            {
+                "name": "Compte-rendu : Séance du mardi 23 juillet 2019",
+                "link": "https://www.assemblee-nationale.fr/dyn/15/comptes-rendus/seance/session-extraordinaire-de-2018-2019/premiere-seance-du-mardi-23-juillet-2019"
+            }
+        ],
+        "invert_votes": false
+    }
+]
