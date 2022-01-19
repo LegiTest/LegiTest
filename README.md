@@ -10,7 +10,7 @@ Choisissez votre coalition.
 
 Consultez la [méthodologie](METHODOLOGY.md).
 
-*Les procédures d'installation et de configuration sont en cours d'amélioration, voir le [ticket #1](/../../issues/1). Pour le moment, référez-vous au code et n'hésitez pas à documenter derrière vous.*
+**[Guide d’installation](https://github.com/QuelParti/QuelParti/wiki/Configuration-de-QuelParti)** pour déployer votre propre instance du logiciel en production. Si le guide manque de clarté, n’hésitez pas à créer un ticket pour suggérer des modifications ou à me contacter.
 
 ### Installation
 
