@@ -1,0 +1,39 @@
+# Which address and port the webserver must listen on
+bind_address = "localhost"
+
+bind_port = 8000
+
+# Show statistics on whitelisted/blacklisted IPs at startup
+show_stats = false
+
+# Debug mode: displays more information on received requests
+debug_mode = true
+
+# Database path
+database_path = "postgres://user:passwordCHANGEMEPLEASE@localhost:port/database"
+
+# Random key for CSRF token
+# openssl rand -base64 32
+csrf_key = "CHANGE ME"
+
+# Give as less information as possible to attackers
+# Display success even when a submission fails
+hide_errors = true
+
+# Do not post on social networks when this option is true
+do_not_publish = true
+
+# AbuseIPdb API key.
+abuseipdb_api_key = ""
+
+# Twitter API client id.
+twitter_api_client_id = ""
+
+# Twitter API client secret.
+twitter_api_client_secret = ""
+
+# Twitter API oauth token.
+twitter_api_oauth_token = ""
+
+# Twitter API oauth secret.
+twitter_api_oauth_secret = ""

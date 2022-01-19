@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "name": "Agir ensemble",
+        "abrev": "AGIR-E",
+        "display": true,
+        "color": "#C7C034",
+        "aliases": [
+            "PO771923"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Gauche démocrate et républicaine",
+        "abrev": "GDR",
+        "display": true,
+        "color": "#A41914",
+        "aliases": [
+            "PO730940"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "La France insoumise",
+        "abrev": "FI",
+        "display": true,
+        "color": "#ED302C",
+        "aliases": [
+            "PO730958"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "La République en Marche",
+        "abrev": "LAREM",
+        "display": true,
+        "color": "#702A82",
+        "aliases": [
+            "PO730964", "PO771789"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Les Républicains",
+        "abrev": "LR",
+        "display": true,
+        "color": "#1C2EFA",
+        "aliases": [
+            "PO730934"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Libertés et Territoires",
+        "abrev": "LT",
+        "display": true,
+        "color": "#66BF74",
+        "aliases": [
+            "PO759900"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Mouvement démocrate et apparentés",
+        "abrev": "DEM",
+        "display": true,
+        "color": "#F26D22",
+        "aliases": [
+            "PO774834", "PO730970"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Non inscrits",
+        "abrev": "NI",
+        "display": false,
+        "color": "#8D949A",
+        "aliases": [
+            "PO723569"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Socialistes et apparentés",
+        "abrev": "SOC",
+        "display": true,
+        "color": "#D46CA9",
+        "aliases": [
+            "PO758835", "PO730946"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "UDI et Indépendants",
+        "abrev": "UDI-I",
+        "display": true,
+        "color": "#8D949A",
+        "aliases": [
+            "PO765636", "PO771889", "PO744425", "PO767217", "PO730952"
+        ]
+    }
+]

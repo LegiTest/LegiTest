@@ -2,6 +2,7 @@
 static/assets/img/deputes/*
 sources/
 config/*/*
+!config/*/*.example
 data/*
 Cargo.lock
 target/
