@@ -21,6 +21,6 @@ once_cell = "1.9"
 csv = "1.1"
 toml = "0.5"
 twapi-reqwest = "0.2"
-image = { version = "0.23", default-features = false, features = ["png"] }
+image = { version = "0.24", default-features = false, features = ["png"] }
 imageproc = "0.22"
 rusttype = "0.9"
