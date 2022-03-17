@@ -1,6 +1,6 @@
 use actix_web::error::Error;
 use actix_web::error::JsonPayloadError;
-use actix_web::web::HttpRequest;
+use actix_web::HttpRequest;
 use actix_web::{error, http::StatusCode, HttpResponse};
 use std::fmt;
 

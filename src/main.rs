@@ -21,7 +21,7 @@ mod matching;
 mod reports;
 
 use actix_files::Files;
-use actix_session::CookieSession;
+use actix_session::{SessionMiddleware, storage::CookieSessionStore, CookieContentSecurity};
 use actix_web::cookie::SameSite;
 use actix_web::web::{Data, JsonConfig};
 use actix_web::{App, HttpServer};
@@ -101,13 +101,16 @@ async fn main() -> std::io::Result<()> {
                 JsonConfig::default()
                     .limit(4096)
                     .error_handler(invalid_form),
-            )
+                    )
             .wrap(
-                CookieSession::signed(&[0; 32])
-                    .secure(true)
-                    .same_site(SameSite::Strict)
-                    .http_only(true),
-            )
+                SessionMiddleware::builder(
+                    CookieSessionStore::default(), g_instance.get_cookie_key()
+                    )
+                .cookie_content_security(CookieContentSecurity::Signed)
+                .cookie_secure(true)
+                .cookie_same_site(SameSite::Strict)
+                .cookie_http_only(true).build()
+                )
             .service(submit)
             .service(int_genreport)
             .service(int_pubreport)
@@ -117,13 +120,13 @@ async fn main() -> std::io::Result<()> {
             .service(Files::new("/", "./static/").index_file("index.html"))
     })
     .bind((
-        g_instance.config.bind_address.as_str(),
-        g_instance.config.bind_port,
-    ))?
-    .workers(16)
-    .system_exit()
-    .run()
-    .await
+            g_instance.config.bind_address.as_str(),
+            g_instance.config.bind_port,
+            ))?
+        .workers(16)
+        .system_exit()
+        .run()
+        .await
 }
 
 pub fn debug(txt: &str) {

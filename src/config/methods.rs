@@ -7,6 +7,7 @@ use crate::config::structs::{
     Scrutin,
 };
 
+use actix_web::cookie::Key;
 use chrono::offset::Utc;
 use rusttype::Font;
 use std::fs::File;
@@ -276,9 +277,15 @@ impl InstanceInfo {
     }
 
     pub fn get_csrf_key(&self) -> [u8; 32] {
-        let mut key: [u8; 32] = Default::default();
-        key.copy_from_slice(&self.config.csrf_key.clone().into_bytes()[..32]);
-        key
+        let mut finalkey: [u8; 32] = Default::default();
+        let key = base64::decode(&self.config.csrf_key).expect("Failed to read csrf key!");
+        finalkey.copy_from_slice(&key[..32]);
+        finalkey
+    }
+
+    pub fn get_cookie_key(&self) -> Key {
+        let key = base64::decode(&self.config.cookie_key).expect("Failed to read cookie key!");
+        Key::from(&key[..64])
     }
 
     // check from the Host header if we actually handle this platform

@@ -13,6 +13,7 @@ pub struct ConfigFile {
     pub debug_mode: bool,
     pub database_path: String,
     pub csrf_key: String,
+    pub cookie_key: String,
     pub hide_errors: bool,
     pub do_not_publish: bool,
     pub abuseipdb_api_key: String,
