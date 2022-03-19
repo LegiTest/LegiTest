@@ -1,12 +1,14 @@
-# QuelParti.fr
+# LegiTest.fr
 
-![QuelParti.fr](/static/assets/img/banner/banner.png)
+*Anciennement QuelParti.fr*
+
+![LegiTest.fr](/static/assets/img/banner/banner.png)
 
 Choisissez votre coalition.
 
-[Faites le test.](https://quelparti.fr)
+[Faites le test.](https://legitest.fr)
 
-**[Site web](https://quelparti.fr)** – [Mastodon](https://botsin.space/@QuelParti) – [Twitter](https://twitter.com/QuelParti) – [Liberapay](https://liberapay.com/QuelParti) – [Buymeacoffee](https://www.buymeacoffee.com/quelparti)
+**[Site web](https://legitest.fr)** – [Mastodon](https://botsin.space/@QuelParti) – [Twitter](https://twitter.com/QuelParti)
 
 Consultez la [méthodologie](METHODOLOGY.md).
 
@@ -39,8 +41,8 @@ Pour simplement travailler sur le côté client, il est possible d'utiliser le s
 git clone https://github.com/QuelParti/QuelParti
 cd QuelParti
 mkdir static/data
-wget https://quelparti.fr/data/acteurs.json -O static/data/acteurs.json
-wget https://quelparti.fr/data/scrutins.json -O static/data/scrutins.json
+wget https://legitest.fr/data/acteurs.json -O static/data/acteurs.json
+wget https://legitest.fr/data/scrutins.json -O static/data/scrutins.json
 cp scripts/client/httpserver.py .
 ./httpserver.py
 ```
