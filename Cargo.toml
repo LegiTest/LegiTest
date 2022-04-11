@@ -22,5 +22,5 @@ csv = "1.1"
 toml = "0.5"
 twapi-reqwest = "0.2"
 image = { version = "0.23", default-features = false, features = ["png"] }
-imageproc = "0.22"
+imageproc = "0.23"
 rusttype = "0.9"
