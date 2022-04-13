@@ -15,7 +15,7 @@ base64 = "0.13"
 chrono = { version = "0.4", features = ["serde"] }
 diesel = { version = "1.4", features = ["postgres", "r2d2", "chrono", "network-address"] }
 diesel_migrations = "1.4"
-ipnetwork = "0.18"
+ipnetwork = "0.19"
 csrf = "0.4"
 once_cell = "1.10"
 csv = "1.1"
