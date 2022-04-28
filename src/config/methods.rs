@@ -292,7 +292,9 @@ impl InstanceInfo {
     // and if the platform poll is open.
     pub fn check_open(&self, host: &str) -> Option<&Platform> {
         // search the platform with the platform host
-        let platform = self.platforms_list.iter().find(|p| p.host == host)?;
+        // very special exception because of the platform rename.
+        // we can remove the replace function in some months probably
+        let platform = self.platforms_list.iter().find(|p| p.host == host.replace("quelparti.fr", "legitest.fr"))?;
 
         if platform.end_at > Utc::now().naive_utc().date() {
             Some(platform)
